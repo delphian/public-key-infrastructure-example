@@ -39,9 +39,11 @@ An example of public key infrastructure with an offline root certificate authori
       * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
   * Create OCSP responder host Certificate Signing Request (`./ocsp.*DOMAIN*.com.csr`)
 * Copy the OCSP responder host Certificate Signing Request (CSR) (`./ocsp.*DOMAIN*.com.csr`) to a usb thumbdrive
+  * `cp ./ocsp.*DOMAIN*.com.csr /media/usb`
 
 #### ON UB16-CA-OFFLINE
-* Copy the Certificate Signing Request (CSR) from the usb thumbdrive to `/root/ca/csr`
+* Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
+  * `cp /media/usb/ocsp.*DOMAIN*.com.csr /root/ca/csr`
 * Execute `./root_ca_sign_ocsp_csr.sh`
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.*DOMAIN*.com`, omitting the .csr file extension.
