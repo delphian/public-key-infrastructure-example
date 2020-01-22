@@ -10,12 +10,13 @@ An example of public key infrastructure with an offline root certificate authori
  
 ## Installation
 
-#### UB16-CA-OFFLINE
+#### UB16-CA-OFFLINE SETUP
  * From non privledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
  * Enter repository `cd public-key-infrastructure-example`
  * Switch to root `sudo su -`
  * Execute `./root_ca_initialize.sh`
    * Create directory structure
    * Create root Certificate Authority (CA) private key and encrypt
+     * Supply a PEM password for the private key and save to a safe location. This password will be required later on.
    * Create root Certificate Authority (CA) certificate and self sign with private key (ca.*DOMAIN*.crt.pem file)
    * Create root Certificate Authority (CA) certificate revocation list (CRL) (revoked.crl file)
