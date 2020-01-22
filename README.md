@@ -70,7 +70,6 @@ An example of public key infrastructure with an offline root certificate authori
 
 #### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
-* Replace all instances of `guardtone` with your domain. Eg `google`, or `myhomelab`
 * Replace the geographic location variables with appropriate values
   * `countryName_default`             = __*US*__
   * `stateOrProvinceName_default`     = __*California*__
