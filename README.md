@@ -37,7 +37,7 @@ __***For HomeLab Experimentation Only***__
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
   * Create directory structure at `/root/ca`
-  * Create root Certificate Authority (CA) private key and encrypt <small>(/root/ca/private/ca.DOMAIN.key.pem)</small>
+  * Create root Certificate Authority (CA) private key and encrypt <sub><small>(/root/ca/private/ca.DOMAIN.key.pem)</small></sub>
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the root CA private key and save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
