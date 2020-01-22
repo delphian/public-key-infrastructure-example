@@ -24,9 +24,13 @@ __***For HomeLab Experimentation Only***__
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    `sed -i -- 's/GuardTone/MyHomeLab/g' *`
+    ```
+    sed -i -- 's/GuardTone/MyHomeLab/g' *
+    ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    `sed -i -- 's/guardtone/myhomelab/g' *`
+    ```
+    sed -i -- 's/guardtone/myhomelab/g' *
+    ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
@@ -43,9 +47,13 @@ __***For HomeLab Experimentation Only***__
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    `sed -i -- 's/GuardTone/MyHomeLab/g' *`
+    ```
+    sed -i -- 's/GuardTone/MyHomeLab/g' *
+    ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    `sed -i -- 's/guardtone/myhomelab/g' *`
+    ```
+    sed -i -- 's/guardtone/myhomelab/g' *
+    ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
