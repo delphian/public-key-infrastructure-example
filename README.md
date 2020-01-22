@@ -48,6 +48,8 @@ An example of public key infrastructure with an offline root certificate authori
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate (`/root/ca/certs/ocsp.*DOMAIN*.com.crt.pem`)
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate (`/root/ca/certs/ocsp.*DOMAIN*.com.crt.pem`) to a usb thumbdrive
+* Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
+  * `cp /root/ca/certs/ca.*DOMAIN*.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb`
 
 #### ON UB16-CA
 
