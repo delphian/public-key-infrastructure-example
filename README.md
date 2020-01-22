@@ -78,25 +78,25 @@ __***For HomeLab Experimentation Only***__
     $ cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
     
 * Launch OpenSSL in OCSP responder mode
-```bash
-openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
--index "/root/ca/index.txt" \
--CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
--rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
--rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem" \
--nrequest 1
-```
+  ```bash
+  openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+  -index "/root/ca/index.txt" \
+  -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
+  -rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
+  -rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem" \
+  -nrequest 1
+  ```
 
 ## Customize OpenSSL Config File
 
 ### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
-```bash
-countryName_default             = US
-stateOrProvinceName_default     = California
-localityName_default            = Victorville
-```
+  ```bash
+  countryName_default             = US
+  stateOrProvinceName_default     = California
+  localityName_default            = Victorville
+  ```
 
 ### For ub16-ca (OCSP responder and Certficiate Revocation List host)
 
