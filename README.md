@@ -17,6 +17,6 @@ An example of public key infrastructure with an offline root certificate authori
  * Execute `./root_ca_initialize.sh`
    * Create directory structure
    * Create root Certificate Authority (CA) private key and encrypt
-     * Supply a PEM password for the private key and save to a safe location. This password will be required later on.
+     * Supply a PEM password for the root CA private key and save to a safe location. _Do not transmit over a computer network_. _Do not store on a network attached device_.
    * Create root Certificate Authority (CA) certificate and self sign with private key (ca.*DOMAIN*.crt.pem file)
    * Create root Certificate Authority (CA) certificate revocation list (CRL) (revoked.crl file)
