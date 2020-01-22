@@ -18,7 +18,7 @@ An example of public key infrastructure with an offline root certificate authori
 * Enter repository `cd public-key-infrastructure-example`
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
-  * Create directory structure
+  * Create directory structure at `/root/ca`
   * Create root Certificate Authority (CA) private key and encrypt (ca.*DOMAIN*.key.pem file)
     * __Do not echo the contents of this file to the terminal__
     * __Do not transfer over a computer network__
@@ -26,7 +26,7 @@ An example of public key infrastructure with an offline root certificate authori
       * __Do not transfer over a computer network__
       * __Do not store on a network attached device__
    * Create root Certificate Authority (CA) certificate and self sign with private key (ca.*DOMAIN*.crt.pem file)
-   * Create root Certificate Authority (CA) certificate revocation list (CRL) (revoked.crl file)
+   * Create root Certificate Authority (CA) Certificate Revocation List (CRL) (revoked.crl file)
 
 ## Resources
  * [X - Certificate and Key management](https://www.hohnstaedt.de/xca/)
