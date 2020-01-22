@@ -75,36 +75,44 @@ __***For HomeLab Experimentation Only***__
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate (`/root/ca/certs/ocsp.DOMAIN.com.crt.pem`)
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate to a usb thumbdrive
-    `cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb`
+    ```
+    cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb
+    ```
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
-    `cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb`
+    ```
+    cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
+    ```
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
-    $ cp /media/usb/index.txt /root/ca/ocsp
-    $ cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
-    $ cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
+
+   ```bash
+   cp /media/usb/index.txt /root/ca/ocsp
+   cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
+   cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
+   ```
     
 * Launch OpenSSL in OCSP responder mode
-  ```bash
-  openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
-  -index "/root/ca/index.txt" \
-  -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
-  -rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
-  -rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem" \
-  -nrequest 1
-  ```
+
+    ```bash
+    openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+    -index "/root/ca/index.txt" \
+    -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
+    -rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
+    -rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem" \
+    -nrequest 1
+    ```
 
 ## Customize OpenSSL Config File
 
 ### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
-  ```bash
-  countryName_default             = US
-  stateOrProvinceName_default     = California
-  localityName_default            = Victorville
-  ```
+    ```bash
+    countryName_default             = US
+    stateOrProvinceName_default     = California
+    localityName_default            = Victorville
+    ```
 
 ### For ub16-ca (OCSP responder and Certficiate Revocation List host)
 
