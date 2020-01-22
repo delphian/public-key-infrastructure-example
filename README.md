@@ -87,8 +87,7 @@ __***For HomeLab Experimentation Only***__
   ```sh
   countryName_default             = US
   stateOrProvinceName_default     = California
-  localityName_default            = Victorville
-```
+  localityName_default            = Victorville```
 
 ### For ub16-ca (OCSP responder and Certficiate Revocation List host)
 
