@@ -70,3 +70,4 @@ An example of public key infrastructure with an offline root certificate authori
 
 ## Resources
  * [X - Certificate and Key management](https://www.hohnstaedt.de/xca/)
+ * [Building an OpenSSL Certificate Authority](https://devcentral.f5.com/s/articles/building-an-openssl-certificate-authority-introduction-and-design-considerations-for-elliptical-curves-27720)
