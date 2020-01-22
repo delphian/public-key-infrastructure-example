@@ -2,6 +2,9 @@
 An example of public key infrastructure with an offline root certificate authority on linux. A package of scripts to make setting up and maintaining an offline root certificate authority just a bit easier.
 
 __***For HomeLab Experimentation Only***__
+^
+|
+--------------------------<<<<<<<<<<<<<<<<< Did you see?
 
 ## Prerequisites
 
@@ -29,7 +32,7 @@ __***For HomeLab Experimentation Only***__
   * Create root Certificate Authority (CA) private key and encrypt (/root/ca/private/ca.DOMAIN.key.pem)
     * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
     * Supply a PEM password for the root CA private key and save to a safe location
-      * (__Do not transfer over a computer network__) (__Do not store on a network attached device__)
+      * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
    * Create root Certificate Authority (CA) certificate and self sign with private key (/root/ca/private/ca.DOMAIN.crt.pem)
    * Create root Certificate Authority (CA) Certificate Revocation List (CRL) (/root/ca/crl/revoked.crl)
 
@@ -48,7 +51,7 @@ __***For HomeLab Experimentation Only***__
   * Create OCSP responder host private key and encrypt (`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)
     * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
     * Supply a PEM password for the OCSP responder host private key and save to a safe location
-      * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
+      * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
   * Create OCSP responder host Certificate Signing Request (`/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr`)
 * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
   * `cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb`
