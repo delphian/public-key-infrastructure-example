@@ -77,7 +77,7 @@ __***For HomeLab Experimentation Only***__
   * `cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs`
   * `cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs`
 * Launch OpenSSL in OCSP responder mode
-  * ```bash
+  * ```
 openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
     -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
