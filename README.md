@@ -25,24 +25,24 @@ __***For HomeLab Experimentation Only***__
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
 
-    ```
+    ```bash
     sed -i -- 's/GuardTone/MyHomeLab/g' *
     ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
 
-    ```
+    ```bash
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
   * Create directory structure at `/root/ca`
-  * Create root Certificate Authority (CA) private key and encrypt (/root/ca/private/ca.DOMAIN.key.pem)
+  * Create root Certificate Authority (CA) private key and encrypt <small>(/root/ca/private/ca.DOMAIN.key.pem)</small>
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the root CA private key and save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) certificate and self sign with private key (/root/ca/private/ca.DOMAIN.crt.pem)
-  * Create root Certificate Authority (CA) Certificate Revocation List (CRL) (/root/ca/crl/revoked.crl)
+  * Create root Certificate Authority (CA) certificate and self sign with private key <small>(/root/ca/private/ca.DOMAIN.crt.pem)</small>
+  * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <small>(/root/ca/crl/revoked.crl)</small>
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Install Ubuntu Server (in our case 16) with LAMP package
@@ -62,36 +62,36 @@ __***For HomeLab Experimentation Only***__
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
   * Create directory structure at `/root/ca/ocsp`
-  * Create OCSP responder host private key and encrypt (`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)
+  * Create OCSP responder host private key and encrypt <small>(`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)</small>
     * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the OCSP responder host private key and save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Create OCSP responder host Certificate Signing Request <sub><small>(/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr)</small></sub>
+  * Create OCSP responder host Certificate Signing Request <small>(/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr)</small>
 * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
 
-    ```
+    ```bash
     cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb
     ```
 
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
 
-    ```
+    ```bash
     cp /media/usb/ocsp.DOMAIN.com.csr /root/ca/csr
     ```
 * Execute `./root_ca_sign_ocsp_csr.sh`
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
-  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><small>(/root/ca/certs/ocsp.DOMAIN.com.crt.pem)</small></sub>
+  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <small>(/root/ca/certs/ocsp.DOMAIN.com.crt.pem)</small>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate to a usb thumbdrive
 
-    ```
+    ```bash
     cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb
     ```
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
 
-    ```
+    ```bash
     cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
 
@@ -120,6 +120,7 @@ __***For HomeLab Experimentation Only***__
 ### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
+
     ```bash
     countryName_default             = US
     stateOrProvinceName_default     = California
