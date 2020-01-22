@@ -11,12 +11,17 @@ An example of public key infrastructure with an offline root certificate authori
 ## Installation
 
 #### UB16-CA-OFFLINE SETUP
- * From non privledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
- * Enter repository `cd public-key-infrastructure-example`
- * Switch to root `sudo su -`
- * Execute `./root_ca_initialize.sh`
-   * Create directory structure
-   * Create root Certificate Authority (CA) private key and encrypt
-     * Supply a PEM password for the root CA private key and save to a safe location. _Do not transmit over a computer network_. _Do not store on a network attached device_.
+* Install Ubuntu (in our case 16)
+* Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. __Never restore this machine's connection to a network__
+* From non privledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
+* Enter repository `cd public-key-infrastructure-example`
+* Switch to root `sudo su -`
+* Execute `./root_ca_initialize.sh`
+  * Create directory structure
+  * Create root Certificate Authority (CA) private key and encrypt (ca.*DOMAIN*.key.pem file). __Do not echo the contents of this file to the terminal__. __Do not transfer over a computer network__.
+    * Supply a PEM password for the root CA private key and save to a safe location. __Do not transfer over a computer network__. __Do not store on a network attached device__.
    * Create root Certificate Authority (CA) certificate and self sign with private key (ca.*DOMAIN*.crt.pem file)
    * Create root Certificate Authority (CA) certificate revocation list (CRL) (revoked.crl file)
+
+## Resources
+ * (https://www.hohnstaedt.de/xca/)[X - Certificate and Key management]
