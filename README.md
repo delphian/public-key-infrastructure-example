@@ -72,6 +72,17 @@ __***For HomeLab Experimentation Only***__
   * `cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb`
 
 #### On ub16-ca (OCSP responder and Certficiate Revocation List host)
+* Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
+  * `cp /media/usb/index.txt /root/ca/ocsp`
+  * `cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs`
+  * `cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs`
+* Launch OpenSSL in OCSP responder mode
+  * ```openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+       -index "/root/ca/index.txt" 
+       -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
+       -rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
+       -rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem \
+       -nrequest 1```
 
 ## Customize OpenSSL Config File
 
@@ -97,6 +108,7 @@ Environment)](https://pdfs.semanticscholar.org/cfb9/77539d4a214766adc3a4a56f57a5
 * [A Best Practice for Root CA Key Update in PKI](https://link.springer.com/content/pdf/10.1007%2F978-3-540-24852-1_20.pdf)
 
 #### Tutorials and Walkthroughs
+* [OCSP Validation with OpenSSL](https://akshayranganath.github.io/OCSP-Validation-With-Openssl/)
 * [Building an OpenSSL Certificate Authority](https://devcentral.f5.com/s/articles/building-an-openssl-certificate-authority-introduction-and-design-considerations-for-elliptical-curves-27720)
 
 #### RFCs
