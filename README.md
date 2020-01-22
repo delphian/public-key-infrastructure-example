@@ -89,11 +89,11 @@ __***For HomeLab Experimentation Only***__
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
-   ```bash
-   cp /media/usb/index.txt /root/ca/ocsp
-   cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
-   cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
-   ```
+    ```bash
+    cp /media/usb/index.txt /root/ca/ocsp
+    cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
+    cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
+    ```
     
 * Launch OpenSSL in OCSP responder mode
     ```bash
