@@ -32,14 +32,14 @@ An example of public key infrastructure with an offline root certificate authori
 * Enter script repository `cd public-key-infrastructure-example`
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
-  * Create directory structure at `/root/ca`
-  * Create OCSP responder host private key and encrypt (`/root/ca/private/ocsp.DOMAIN.com.key.pem`)
+  * Create directory structure at `/root/ca/ocsp`
+  * Create OCSP responder host private key and encrypt (`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)
     * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
     * Supply a PEM password for the OCSP responder host private key and save to a safe location
       * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
-  * Create OCSP responder host Certificate Signing Request (`./ocsp.DOMAIN.com.csr`)
-* Copy the OCSP responder host Certificate Signing Request (CSR) (`./ocsp.DOMAIN.com.csr`) to a usb thumbdrive
-  * `cp ./ocsp.DOMAIN.com.csr /media/usb`
+  * Create OCSP responder host Certificate Signing Request (`/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr`)
+* Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
+  * `cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb`
 
 #### On ub16-ca-offline (offline root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
@@ -49,7 +49,8 @@ An example of public key infrastructure with an offline root certificate authori
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate (`/root/ca/certs/ocsp.DOMAIN.com.crt.pem`)
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
-* Copy the OCSP responder host certificate (`/root/ca/certs/ocsp.DOMAIN.com.crt.pem`) to a usb thumbdrive
+* Copy the OCSP responder host certificate to a usb thumbdrive
+  * `cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb`
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
   * `cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb`
 
