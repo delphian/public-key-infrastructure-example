@@ -84,9 +84,11 @@ __***For HomeLab Experimentation Only***__
 ### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
-> countryName_default             = US
-> stateOrProvinceName_default     = California
-> localityName_default            = Victorville
+  ```sh
+  countryName_default             = US
+  stateOrProvinceName_default     = California
+  localityName_default            = Victorville
+```
 
 ### For ub16-ca (OCSP responder and Certficiate Revocation List host)
 
