@@ -47,11 +47,11 @@ __***For HomeLab Experimentation Only***__
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    ```
+    ```bash
     sed -i -- 's/GuardTone/MyHomeLab/g' *
     ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    ```
+    ```bash
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
@@ -83,7 +83,6 @@ __***For HomeLab Experimentation Only***__
     cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb
     ```
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
-
     ```bash
     cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
