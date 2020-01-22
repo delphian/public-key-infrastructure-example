@@ -20,19 +20,19 @@ __***For HomeLab Experimentation Only***__
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Install Ubuntu Server (in our case 16)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
-  * __Never restore this machine's connection to a network__
+  * (__Never restore this machine's connection to a network__)
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-  * `sed -i -- 's/GuardTone/MyHomeLab/g' *`
+    `sed -i -- 's/GuardTone/MyHomeLab/g' *`
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-  * `sed -i -- 's/guardtone/myhomelab/g' *`
+    `sed -i -- 's/guardtone/myhomelab/g' *`
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
   * Create directory structure at `/root/ca`
   * Create root Certificate Authority (CA) private key and encrypt (/root/ca/private/ca.DOMAIN.key.pem)
-    * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
+    * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the root CA private key and save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
    * Create root Certificate Authority (CA) certificate and self sign with private key (/root/ca/private/ca.DOMAIN.crt.pem)
@@ -43,33 +43,33 @@ __***For HomeLab Experimentation Only***__
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-  * `sed -i -- 's/GuardTone/MyHomeLab/g' *`
+    `sed -i -- 's/GuardTone/MyHomeLab/g' *`
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-  * `sed -i -- 's/guardtone/myhomelab/g' *`
+    `sed -i -- 's/guardtone/myhomelab/g' *`
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
   * Create directory structure at `/root/ca/ocsp`
   * Create OCSP responder host private key and encrypt (`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)
-    * (__Do not echo the contents of this file to the terminal__) (__Do not transfer over a computer network__)
+    * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the OCSP responder host private key and save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
   * Create OCSP responder host Certificate Signing Request (`/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr`)
 * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
-  * `cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb`
+    `cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb`
 
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
-  * `cp /media/usb/ocsp.DOMAIN.com.csr /root/ca/csr`
+    `cp /media/usb/ocsp.DOMAIN.com.csr /root/ca/csr`
 * Execute `./root_ca_sign_ocsp_csr.sh`
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate (`/root/ca/certs/ocsp.DOMAIN.com.crt.pem`)
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate to a usb thumbdrive
-  * `cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb`
+    `cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb`
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
-    $ cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
+    `cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb`
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
