@@ -3,7 +3,9 @@ An example of public key infrastructure with an offline root certificate authori
 
 ### _For HomeLab Experimentation Only_
 
-### Machines Required
+## Prerequisites
+
+#### 3 Machines
  - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04
  - *ub16-ca*: Host the OCSP responder and CRL for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack
  - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack
