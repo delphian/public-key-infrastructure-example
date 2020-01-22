@@ -12,7 +12,7 @@ An example of public key infrastructure with an offline root certificate authori
 
 #### UB16-CA-OFFLINE SETUP
 * Install Ubuntu (in our case 16)
-* Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS.
+* Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
   * __Never restore this machine's connection to a network__
 * From non privledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter repository `cd public-key-infrastructure-example`
