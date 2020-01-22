@@ -20,6 +20,7 @@ An example of public key infrastructure with an offline root certificate authori
   * `sed -i -- 's/GuardTone/MyHomeLab/g' *`
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
   * `sed -i -- 's/guardtone/myhomelab/g' *`
+* [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./root_ca_initialize.sh`
   * Create directory structure at `/root/ca`
@@ -38,6 +39,7 @@ An example of public key infrastructure with an offline root certificate authori
   * `sed -i -- 's/GuardTone/MyHomeLab/g' *`
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
   * `sed -i -- 's/guardtone/myhomelab/g' *`
+* [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
   * Create directory structure at `/root/ca/ocsp`
