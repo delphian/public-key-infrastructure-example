@@ -2,9 +2,11 @@
 An example of public key infrastructure with an offline root certificate authority on linux. A package of scripts to make setting up and maintaining an offline root certificate authority just a bit easier.
 
 __***For HomeLab Experimentation Only***__
+```
 ^
 |
 --------------------------<<<<<<<<<<<<<<<<< Did you see?
+```
 
 ## Prerequisites
 
