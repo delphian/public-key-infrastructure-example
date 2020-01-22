@@ -1,7 +1,7 @@
 # Public Key Infrastructure Example
 An example of public key infrastructure with an offline root certificate authority on linux. A package of scripts to make setting up and maintaining an offline root certificate authority just a bit easier.
 
-### _For HomeLab Experimentation Only_
+### __*For HomeLab Experimentation Only*__
 
 ## Prerequisites
 
