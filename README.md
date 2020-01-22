@@ -24,12 +24,10 @@ __***For HomeLab Experimentation Only***__
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-
     ```bash
     sed -i -- 's/GuardTone/MyHomeLab/g' *
     ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-
     ```bash
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
@@ -41,20 +39,18 @@ __***For HomeLab Experimentation Only***__
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the root CA private key and save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sub>(/root/ca/private/ca.DOMAIN.crt.pem)</sub></sub>
-  * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sub>(/root/ca/crl/revoked.crl)</sub></sub>
+  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/private/ca.DOMAIN.crt.pem)</sup></sub>
+  * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Install Ubuntu Server (in our case 16) with LAMP package
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-
     ```
     sed -i -- 's/GuardTone/MyHomeLab/g' *
     ```
 * Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-
     ```
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
@@ -62,30 +58,27 @@ __***For HomeLab Experimentation Only***__
 * Switch to root `sudo su -`
 * Execute `./ocsp_create_csr.sh`
   * Create directory structure at `/root/ca/ocsp`
-  * Create OCSP responder host private key and encrypt <sub><sub>(`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)</sub></sub>
+  * Create OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM password for the OCSP responder host private key and save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Create OCSP responder host Certificate Signing Request <sub><sub>(/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr)</sub></sub>
+  * Create OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr)</sup></sub>
 * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
-
     ```bash
     cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb
     ```
 
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
-
     ```bash
     cp /media/usb/ocsp.DOMAIN.com.csr /root/ca/csr
     ```
 * Execute `./root_ca_sign_ocsp_csr.sh`
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
-  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sub>(/root/ca/certs/ocsp.DOMAIN.com.crt.pem)</sub></sub>
+  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.DOMAIN.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate to a usb thumbdrive
-
     ```bash
     cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb
     ```
@@ -97,7 +90,6 @@ __***For HomeLab Experimentation Only***__
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
-
    ```bash
    cp /media/usb/index.txt /root/ca/ocsp
    cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
@@ -105,7 +97,6 @@ __***For HomeLab Experimentation Only***__
    ```
     
 * Launch OpenSSL in OCSP responder mode
-
     ```bash
     openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
@@ -120,7 +111,6 @@ __***For HomeLab Experimentation Only***__
 ### For ub16-ca-offline (offline root Certificate Authority)
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
-
     ```bash
     countryName_default             = US
     stateOrProvinceName_default     = California
