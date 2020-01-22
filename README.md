@@ -135,6 +135,7 @@ Environment)](https://pdfs.semanticscholar.org/cfb9/77539d4a214766adc3a4a56f57a5
 
 ### RFCs
 * [X.509 Internet Public Key Infrastructure - Online Certificate Status Protocol - OCSP](https://tools.ietf.org/html/rfc6960)
+* [Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile](https://tools.ietf.org/html/rfc5280)
 
 ### Software
 * [X - Certificate and Key management](https://www.hohnstaedt.de/xca/)
