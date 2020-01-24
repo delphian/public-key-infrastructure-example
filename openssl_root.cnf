@@ -69,7 +69,6 @@ stateOrProvinceName_default     = California
 localityName_default            = Victorville
 0.organizationName_default      = GuardTone
 organizationalUnitName_default  = GuardTone Root CA
-commonName_default		= GuardTone Root Certificate Authority
 emailAddress_default            = ca@guardtone.com
 
 [ v3_ca ]
