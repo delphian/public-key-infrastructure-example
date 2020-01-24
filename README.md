@@ -32,14 +32,13 @@ __***For HomeLab Experimentation Only***__
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
-* Switch to root `sudo su -`
-* Execute `./root_ca_initialize.sh`
+* Execute `sudo ./root_ca_initialize.sh`
   * Create directory structure at `/root/ca`
-  * Create root Certificate Authority (CA) private key and encrypt <sub><sup>(/root/ca/private/ca.DOMAIN.key.pem)</sup></sub>
+  * Create root Certificate Authority (CA) private key and encrypt <sub><sup>(/root/ca/private/ca.guardtone.key.pem)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/certs/ca.DOMAIN.crt.pem)</sup></sub>
+  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
     * Enter the root CA private key pass phrase
   * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
     * Enter the root CA private key pass phrase
@@ -57,17 +56,17 @@ __***For HomeLab Experimentation Only***__
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
-* Switch to root `sudo su -`
-* Execute `./ocsp_create_csr.sh`
+* Execute `sudo ./ocsp_create_csr.sh`
   * Create directory structure at `/root/ca/ocsp`
-  * Create OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem`)</sup></sub>
+  * Create OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-    * Supply a PEM password for the OCSP responder host private key and save to a safe location
+    * Supply a PEM pass phrase for the OCSP responder host private key and verify. Save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Create OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.DOMAIN.com.csr)</sup></sub>
+  * Create OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.guardtone.com.csr)</sup></sub>
+    * Enter the OCSP responder host private key pass phrase
 * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
-    cp /root/ca/ocsp/csr/ocsp.DOMAIN.com.csr /media/usb
+    cp /root/ca/ocsp/csr/ocsp.guardtone.com.csr /media/usb
     ```
 
 ### On ub16-ca-offline (offline root Certificate Authority)
