@@ -24,10 +24,11 @@ fi
 if [ ! -f /root/ca/ocsp/csr/ocsp.guardtone.com.csr ]; then
 	printf "\n>> Generating root CA OCSP responder Certificate Signing Request (CSR)...\n"
 	printf "!! Common Name should be: ocsp.guardtone.com !!\n\n"
-	openssl req -config "/root/ca/openssl_root.cnf" -new -key "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" -out "/root/ca/ocsp/csr/ocsp.guardtone.com.csr"
+	openssl req -config "/root/ca/openssl_root.cnf" -new -key "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" -out "/root/ca/ocsp/csr/ocsp.guardtone.com.csr" -extensions "server_cert"
 fi
 
 # Print summary
 if [ -f /root/ca/private/ocsp.guardtone.com.key.pem ]; then
-	printf "\n\n>> New OCSP private key:\t/root/ca/private/ocsp.guardtone.crt.pem"
+	printf "\n\n>> New OCSP private key:\t\t/root/ca/ocsp/private/ocsp.guardtone.crt.pem"
+	printf "\n>> New OCSP certificate request:\t/root/ca/ocsp/csr/ocsp.guardtone.com.csr"
 fi
