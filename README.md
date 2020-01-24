@@ -37,10 +37,12 @@ __***For HomeLab Experimentation Only***__
   * Create directory structure at `/root/ca`
   * Create root Certificate Authority (CA) private key and encrypt <sub><sup>(/root/ca/private/ca.DOMAIN.key.pem)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
-    * Supply a PEM password for the root CA private key and save to a safe location
+    * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/private/ca.DOMAIN.crt.pem)</sup></sub>
+  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/certs/ca.DOMAIN.crt.pem)</sup></sub>
+    * Enter the root CA private key pass phrase
   * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
+    * Enter the root CA private key pass phrase
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Install Ubuntu Server (in our case 16) with LAMP package
