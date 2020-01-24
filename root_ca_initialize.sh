@@ -22,7 +22,8 @@ fi
 
 # Generate root certificate
 if [ ! -f /root/ca/certs/ca.guardtone.crt.pem ]; then
-	printf "\n>> Generating root CA certificate and self signing...\n\n"
+	printf "\n>> Generating root CA certificate and self signing...\n"
+	printf "!! Common Name should be: GuardTone Root Certificate Authority !!\n\n"
 	openssl req -config /root/ca/openssl_root.cnf -new -x509 -sha384 -extensions v3_ca -key /root/ca/private/ca.guardtone.key.pem -out /root/ca/certs/ca.guardtone.crt.pem
 fi
 
