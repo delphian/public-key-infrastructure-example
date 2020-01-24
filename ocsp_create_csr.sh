@@ -1,5 +1,3 @@
-# Inspired by instructions from http://devcentral.f5.com/s/articles/building-an-openssl-certificate-authority-introduction-and-design-considertions-for-elliptical-curves-27720
-# Switch to root before executing. To reset and start over first issue 'rm -Rf /root/ca/ocsp'.
 # Execute on OCSP responder host.
 
 # Abort script if any error is encountered
