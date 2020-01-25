@@ -81,6 +81,7 @@ __***For HomeLab Experimentation Only***__
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
+    * Confirm the signing, twice
 * Copy the OCSP responder host certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
     ```bash
     sudo cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
@@ -90,9 +91,9 @@ __***For HomeLab Experimentation Only***__
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
-    cp /media/usb/index.txt /root/ca/ocsp
-    cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/certs
-    cp /media/usb/ca.guardtone.crt.pem /root/ca/ocsp/certs
+    sudo cp /media/usb/index.txt /root/ca/ocsp
+    sudo cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/certs
+    sudo cp /media/usb/ca.guardtone.crt.pem /root/ca/ocsp/certs
     ```
 * Launch OpenSSL in OCSP responder mode
     ```bash
