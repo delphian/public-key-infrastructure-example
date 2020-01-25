@@ -11,13 +11,13 @@ __***For HomeLab Experimentation Only***__
 ## Prerequisites
 
 #### 3 Machines
-*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*
+<small>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</small>
  - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04
  - *ub16-ca*: Host the OCSP responder and CRL host for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack
  - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack
  
 ## Installation
-*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*
+<small>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</small>
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Install Ubuntu Server (in our case 16)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
