@@ -1,4 +1,6 @@
 DIR="/root/ca/intermediate"
+DOMAIN="guardtone"
+CA="ca.home"
 
 # Abort script if any error is encountered
 set -e
@@ -11,21 +13,21 @@ if [ ! -d "${DIR}" ]; then
 	echo 1000 > "${DIR}/crlnumber"
 fi
 # Generate intermediate private key and encrypt
-if [ ! -f "${DIR}/private/home.ca.guardtone.key.pem" ]; then
+if [ ! -f "${DIR}/private/${CA}.${DOMAIN}.key.pem" ]; then
 	printf "\n>> Generating intermediate CA private key and encrypting...\n\n"
-	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/home.ca.guardtone.key.pem"
+	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/${CA}.${DOMAIN}.key.pem"
 fi
 # Generate intermediate Certificate Signing Request (CSR)
-if [ ! -f "${DIR}/csr/home.ca.guardtone.csr" ]; then
+if [ ! -f "${DIR}/csr/${CA}.${DOMAIN}.csr" ]; then
 	printf "\n>> Generating intermediate CA Certificate Signing Request (CSR) for root CA...\n\n"
-	openssl req -config "./intermediate_ca_openssl.cnf" -new -key "${DIR}/private/home.ca.guardtone.key.pem" -out "${DIR}/csr/home.ca.guardtone.csr"
+	openssl req -config "./intermediate_ca_openssl.cnf" -new -key "${DIR}/private/${CA}.${DOMAIN}.key.pem" -out "${DIR}/csr/${CA}.${DOMAIN}.csr"
 fi
 # Generate intermediate certificate revocation list
-if [ ! -f "${DIR}/crl/revoked.crl" ]; then
+if [ ! -f "${DIR}/crl/${CA}-revoked.crl" ]; then
 	printf "\n>> Generating intermediate CA Certificate Revocation List (CRL)"
-	openssl ca -config "./intermediate_ca_openssl.cnf" -gencrl -out "${DIR}/crl/revoked.crl"
+	openssl ca -config "./intermediate_ca_openssl.cnf" -gencrl -out "${DIR}/crl/${CA}-revoked.crl"
 fi
 # Summary
-if [ -f "${DIR}/csr/home.ca.guardtone.csr" ]; then
-	printf "\n\n>> Intermediate Certificate Signing Request (CSR): ${DIR}/csr/home.ca.guardtone.csr\n\n"
+if [ -f "${DIR}/csr/home.ca.${DOMAIN}.csr" ]; then
+	printf "\n\n>> Intermediate Certificate Signing Request (CSR): ${DIR}/csr/${CA}.${DOMAIN}.csr\n\n"
 fi
