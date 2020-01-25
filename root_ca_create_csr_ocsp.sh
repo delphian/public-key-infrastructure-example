@@ -19,7 +19,7 @@ fi
 # Generate Certificate Signing Request (CSR)
 if [ ! -f ${DIR}/csr/${CERT_URL}.csr ]; then
 	printf "\n>> Generating ${CERT_NAME} Certificate Signing Request (CSR)...\n"
-	printf "!! Common Name should be: ${CERT_URL} !!\n\n"
+	printf "   **** Common Name should be: ${CERT_URL} ****\n\n"
 	openssl req -config "${CONFIG}" \
 	            -new \
 		    -key "${DIR}/private/${CERT_URL}.key.pem" \
