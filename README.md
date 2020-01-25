@@ -126,7 +126,7 @@ __***For HomeLab Experimentation Only***__
 
 ## Resources
 
-### Introductory Educational Articles
+### Introduction
 * [An Overview of Cryptography](https://www.cs.princeton.edu/~chazelle/courses/BIB/overview-crypto.pdf)
 * [On the Differences between Hiding Information and Cryptography Techniques: An Overview](https://scialert.net/fulltextmobile/?doi=jas.2010.1650.1655)
 * [Public Key Infrastructure
@@ -134,11 +134,14 @@ Overview](http://highsecu.free.fr/db/outils_de_securite/cryptographie/pki/public
 * [Design and Implementation of PKI (For Multi Domain
 Environment)](https://pdfs.semanticscholar.org/cfb9/77539d4a214766adc3a4a56f57a5a464b9cf.pdf)
 * [HTTPS in the Real World](https://robertheaton.com/2018/11/28/https-in-the-real-world/)
-* [A Best Practice for Root CA Key Update in PKI](https://link.springer.com/content/pdf/10.1007%2F978-3-540-24852-1_20.pdf)
 
 ### Tutorials and Walkthroughs
 * [OCSP Validation with OpenSSL](https://akshayranganath.github.io/OCSP-Validation-With-Openssl/)
 * [Building an OpenSSL Certificate Authority](https://devcentral.f5.com/s/articles/building-an-openssl-certificate-authority-introduction-and-design-considerations-for-elliptical-curves-27720)
+
+### Best Practice, Common Mistakes
+* [Most Secure Way to do OCSP Signing](https://security.stackexchange.com/questions/15564/what-is-the-most-secure-way-to-do-ocsp-signing-without-creating-validation-loops)
+* [A Best Practice for Root CA Key Update in PKI](https://link.springer.com/content/pdf/10.1007%2F978-3-540-24852-1_20.pdf)
 
 ### RFCs
 * [X.509 Internet Public Key Infrastructure - Online Certificate Status Protocol - OCSP](https://tools.ietf.org/html/rfc6960)
