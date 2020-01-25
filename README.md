@@ -38,7 +38,7 @@ __***For HomeLab Experimentation Only***__
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
+  * Create root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate) <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
     * Enter the root CA private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
       * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`
