@@ -100,8 +100,8 @@ __***For HomeLab Experimentation Only***__
     sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
     -CA "/root/ca/certs/ca.guardtone.crt.pem" \
-    -rkey "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" \
-    -rsigner "/root/ca/ocsp/certs/ocsp.guardtone.com.crt.pem" \
+    -rkey "/root/ca/private/ocsp.guardtone.com.key.pem" \
+    -rsigner "/root/ca/certs/ocsp.guardtone.com.crt.pem" \
     -nrequest 1
     ```
   * Enter the OCSP responder host private key pass phrase
