@@ -12,7 +12,7 @@ __***For HomeLab Experimentation Only***__
 
 #### 3 Machines
  - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04
- - *ub16-ca*: Host the OCSP responder and CRL for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack
+ - *ub16-ca*: Host the OCSP responder and CRL host for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack
  - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack
  
 ## Installation
@@ -58,15 +58,15 @@ __***For HomeLab Experimentation Only***__
     sudo ./ocsp_create_csr.sh
     ```
   * Directory structure generated at `/root/ca/ocsp`
-  * Generates OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
+  * Generates OCSP responder private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the OCSP responder host private key and verify. Save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Generates OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.guardtone.com.csr)</sup></sub>
-    * Enter the OCSP responder host private key pass phrase
+  * Generates OCSP responder Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.guardtone.com.csr)</sup></sub>
+    * Enter the OCSP responder private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
       * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. __*Common Name must be `ocsp.guardtone.com`*__
-    * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
+    * Copy the OCSP responder Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
     sudo cp /root/ca/ocsp/csr/ocsp.guardtone.com.csr /media/usb
     ```
@@ -78,27 +78,28 @@ __***For HomeLab Experimentation Only***__
     sudo ./root_ca_sign_ocsp_csr.sh`
     ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
-    * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
-  * Sign OCSP host Certificate Signing Request (CSR) creating the __unrevocable__<sup>1</sup> OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
+    * Select the OCSP responder Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
+  * Sign OCSP responder Certificate Signing Request (CSR) creating the __poor practice__<sup>1</sup> OCSP responder certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
     * Confirm the signing, twice
-* Copy the OCSP responder host certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
+* Copy the OCSP responder certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
     ```bash
     sudo cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
     sudo cp /root/ca/certs/ca.guardtone.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
-* Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
+* Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
     sudo cp /media/usb/index.txt /root/ca
-    sudo cp /media/usb/ca.guardtone.crt.pem /media/usb/ocsp.guardtone.com.crt.pem /root/ca/ocsp/certs
+    sudo cp /media/usb/ca.guardtone.crt.pem /root/ca/certs
+    sudo cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/ocsp/certs
     ```
 * Launch OpenSSL in OCSP responder mode (as root?)
     ```bash
     sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
-    -CA "/root/ca/ocsp/certs/ca.guardtone.crt.pem" \
+    -CA "/root/ca/certs/ca.guardtone.crt.pem" \
     -rkey "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" \
     -rsigner "/root/ca/ocsp/certs/ocsp.guardtone.com.crt.pem" \
     -nrequest 1
