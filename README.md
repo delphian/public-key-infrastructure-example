@@ -55,7 +55,7 @@ __***For HomeLab Experimentation Only***__
 * [Customize root_ca_openssl.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
-    sudo ./ocsp_create_csr.sh
+    sudo ./root_ca_ocsp_create_csr.sh
     ```
   * Directory structure generated at `/root/ca/ocsp`
   * Generates OCSP responder private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
