@@ -1,4 +1,4 @@
-# Execute on OCSP responder host
+# Create a new private key and certificate signing request
 DIR="/root/ca"
 CERT_URL="ocsp.guardtone.com"
 CERT_NAME="Root CA OCSP Responder"
