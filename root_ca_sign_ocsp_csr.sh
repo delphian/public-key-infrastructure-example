@@ -1,4 +1,5 @@
 # Sign a OCSP responder Certificate Signing Request (CSR)
+# Execute on offline Root Certificate Authority (CA)
 DIR="/root/ca"
 
 # Abort script if any error is encountered
