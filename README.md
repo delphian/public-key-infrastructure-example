@@ -32,17 +32,20 @@ __***For HomeLab Experimentation Only***__
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
-* Execute `sudo ./root_ca_initialize.sh`
-  * Create directory structure at `/root/ca`
-  * Create root Certificate Authority (CA) private key and encrypt <sub><sup>(/root/ca/private/ca.guardtone.key.pem)</sup></sub>
+* Execute the root Certificate Authority (CA) initialization script
+    ```bash
+    sudo ./root_ca_initialize.sh
+    ```
+  * Directory structure generated at `/root/ca`
+  * Generates root Certificate Authority (CA) private key and encrypts <sub><sup>(/root/ca/private/ca.guardtone.key.pem)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Create root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate) <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
+  * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate) <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
     * Enter the root CA private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`
-  * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
+      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. *Common Name could be `GuardTone Root Certificate Authority`*
+  * Generates root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
     * Enter the root CA private key pass phrase
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
@@ -58,15 +61,20 @@ __***For HomeLab Experimentation Only***__
     sed -i -- 's/guardtone/myhomelab/g' *
     ```
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
-* Execute `sudo ./ocsp_create_csr.sh`
-  * Create directory structure at `/root/ca/ocsp`
-  * Create OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
+* Execute the OCSP responder Certificate Signing Request (CSR) creation script
+    ```bash
+    sudo ./ocsp_create_csr.sh
+    ```
+  * Directory structure generated at `/root/ca/ocsp`
+  * Generates OCSP responder host private key and encrypt <sub><sup>(`/root/ca/ocsp/private/ocsp.guardtone.com.key.pem`)</sup></sub>
     * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the OCSP responder host private key and verify. Save to a safe location
       * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Create OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.guardtone.com.csr)</sup></sub>
+  * Generates OCSP responder host Certificate Signing Request <sub><sup>(/root/ca/ocsp/csr/ocsp.guardtone.com.csr)</sup></sub>
     * Enter the OCSP responder host private key pass phrase
-* Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
+    * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
+      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. __*Common Name must be `ocsp.guardtone.com`*__
+    * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
     cp /root/ca/ocsp/csr/ocsp.guardtone.com.csr /media/usb
     ```
