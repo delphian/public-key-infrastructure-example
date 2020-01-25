@@ -75,7 +75,7 @@ __***For HomeLab Experimentation Only***__
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
     ```bash
     sudo cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
-    sudo ./root_ca_sign_ocsp_csr.sh`
+    sudo ./root_ca_sign_csr_ocsp.sh`
     ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP responder Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
