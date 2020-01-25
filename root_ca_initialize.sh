@@ -35,7 +35,7 @@ if [ ! -f "${DIR}/crl/revoked.crl" ]; then
 	openssl ca -config "${CONFIG}" -gencrl -out "${DIR}/crl/revoked.crl"
 fi
 # Summary
-if [ -f "${DIR}/certs/${CERT_DOMAIN}.crt.pem" ]; then
+if [ -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
 	printf "\n\n>> New ${CERT_NAME} certificate:\t\t\t\t${DIR}/certs/${CERT_URL}.crt.pem"
 	printf "\n>> New ${CERT_NAME} Certificate Revocation List (CRL):\t${DIR}/crl/revoked.crl\n\n"
 fi
