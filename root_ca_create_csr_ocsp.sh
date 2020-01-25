@@ -25,8 +25,8 @@ if [ ! -f ${DIR}/csr/${CERT_URL}.csr ]; then
 		    -key "${DIR}/private/${CERT_URL}.key.pem" \
 		    -out "${DIR}/csr/${CERT_URL}.csr"
 fi
-# Print summary
+# Summary
 if [ -f ${DIR}/private/${CERT_URL}.key.pem ]; then
-	printf "\n\n>> New ${CERT_NAME} private key:\t\t\t${DIR}/private/${CERT_URL}.crt.pem"
-	printf "\n>> New ${CERT_NAME} certificate signing request:\t${DIR}/csr/${CERT_URL}.csr\n"
+	printf "\n>> New ${CERT_NAME} private key:\t\t\t${DIR}/private/${CERT_URL}.crt.pem"
+	printf "\n>> New ${CERT_NAME} certificate signing request:\t${DIR}/csr/${CERT_URL}.csr\n\n"
 fi
