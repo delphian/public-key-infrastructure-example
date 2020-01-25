@@ -91,13 +91,13 @@ __***For HomeLab Experimentation Only***__
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
-    sudo cp /media/usb/index.txt /root/ca/ocsp
-    sudo cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/certs
-    sudo cp /media/usb/ca.guardtone.crt.pem /root/ca/ocsp/certs
+    sudo cp /media/usb/index.txt /root/ca
+    sudo cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/ocsp/certs
+    sudo cp /media/usb/ca.guardtone.crt.pem /root/ca/certs
     ```
-* Launch OpenSSL in OCSP responder mode
+* Launch OpenSSL in OCSP responder mode (as root?)
     ```bash
-    openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+    sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
     -CA "/root/ca/certs/ca.guardtone.crt.pem" \
     -rkey "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" \
