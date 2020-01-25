@@ -68,45 +68,39 @@ __***For HomeLab Experimentation Only***__
       * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. __*Common Name must be `ocsp.guardtone.com`*__
     * Copy the OCSP responder host Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
-    cp /root/ca/ocsp/csr/ocsp.guardtone.com.csr /media/usb
+    sudo cp /root/ca/ocsp/csr/ocsp.guardtone.com.csr /media/usb
     ```
 
 ### On ub16-ca-offline (offline root Certificate Authority)
-* Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
+* Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
     ```bash
-    cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
-    ```
-* Execute the Certificate Signing Request (CSR) processor script
-    ```bash
-    ./root_ca_sign_ocsp_csr.sh`
+    sudo cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
+    sudo ./root_ca_sign_ocsp_csr.sh`
     ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
-    * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
+    * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
   * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
-* Copy the OCSP responder host certificate to a usb thumbdrive
+* Copy the OCSP responder host certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
     ```bash
-    cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
-    ```
-* Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
-    ```bash
-    cp /root/ca/certs/ca.DOMAIN.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
+    sudo cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
+    sudo cp /root/ca/certs/ca.guardtone.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
     cp /media/usb/index.txt /root/ca/ocsp
-    cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
-    cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
+    cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/certs
+    cp /media/usb/ca.guardtone.crt.pem /root/ca/ocsp/certs
     ```
 * Launch OpenSSL in OCSP responder mode
     ```bash
     openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
-    -CA "/root/ca/certs/ca.DOMAIN.crt.pem" \
-    -rkey "/root/ca/ocsp/private/ocsp.DOMAIN.com.key.pem" \
-    -rsigner "/root/ca/ocsp/certs/ocsp.DOMAIN.com.crt.pem" \
+    -CA "/root/ca/certs/ca.guardtone.crt.pem" \
+    -rkey "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" \
+    -rsigner "/root/ca/ocsp/certs/ocsp.guardtone.com.crt.pem" \
     -nrequest 1
     ```
 
