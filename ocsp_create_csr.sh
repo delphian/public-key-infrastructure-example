@@ -23,5 +23,5 @@ fi
 # Print summary
 if [ -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
 	printf "\n\n>> New OCSP private key:\t\t${DIR}/private/ocsp.${DOMAIN}.crt.pem"
-	printf "\n>> New OCSP certificate request:\t${DIR}/csr/ocsp.${DOMAIN}.com.csr"
+	printf "\n>> New OCSP certificate request:\t${DIR}/csr/ocsp.${DOMAIN}.com.csr\n"
 fi
