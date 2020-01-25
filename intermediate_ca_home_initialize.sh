@@ -2,7 +2,7 @@
 DIR="/root/ca"
 CERT_URL="ca.home.guardtone.com"
 CERT_NAME="Home GuardTone Certificate Authority"
-CONFIG="./intermediate_ca_openssl.cnf"
+CONFIG="./intermediate_ca_home_openssl.cnf"
 
 # Abort script if any error is encountered
 set -e
