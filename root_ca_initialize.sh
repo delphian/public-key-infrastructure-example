@@ -22,12 +22,12 @@ fi
 if [ ! -f "${DIR}/certs/ca.${DOMAIN}.crt.pem" ]; then
 	printf "\n>> Generating root CA certificate and self signing...\n"
 	printf "!! Common Name should be: ${DOMAINNAME} Root Certificate Authority !!\n\n"
-	openssl req -config "./openssl_root.cnf" -new -x509 -sha384 -extensions v3_ca -key "${DIR}/private/ca.${DOMAIN}.key.pem" -out "${DIR}/certs/ca.${DOMAIN}.crt.pem"
+	openssl req -config "./root_ca_openssl.cnf" -new -x509 -sha384 -extensions v3_ca -key "${DIR}/private/ca.${DOMAIN}.key.pem" -out "${DIR}/certs/ca.${DOMAIN}.crt.pem"
 fi
 # Create root Certificate Revocation List
 if [ ! -f "${DIR}/crl/revoked.crl" ]; then
 	printf "\n>> Generating root CA Certificate Revocation List (CRL)...\n\n"
-	openssl ca -config "./openssl_root.cnf" -gencrl -out "${DIR}/crl/revoked.crl"
+	openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "${DIR}/crl/revoked.crl"
 fi
 # Validate root Certificate Revocation List
 if [ -f "${DIR}/crl/revoked.crl" ]; then
