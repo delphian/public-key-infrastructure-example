@@ -79,7 +79,7 @@ __***For HomeLab Experimentation Only***__
     ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
-  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
+  * Sign OCSP host Certificate Signing Request (CSR) creating the __unrevocable__<sup>1</sup> OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
     * Confirm the signing, twice
 * Copy the OCSP responder host certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
@@ -140,7 +140,7 @@ Environment)](https://pdfs.semanticscholar.org/cfb9/77539d4a214766adc3a4a56f57a5
 * [Building an OpenSSL Certificate Authority](https://devcentral.f5.com/s/articles/building-an-openssl-certificate-authority-introduction-and-design-considerations-for-elliptical-curves-27720)
 
 ### Best Practice, Common Mistakes
-* [Most Secure Way to do OCSP Signing](https://security.stackexchange.com/questions/15564/what-is-the-most-secure-way-to-do-ocsp-signing-without-creating-validation-loops)
+* <sup>[1]</sup>[Most Secure Way to do OCSP Signing](https://security.stackexchange.com/questions/15564/what-is-the-most-secure-way-to-do-ocsp-signing-without-creating-validation-loops)
 * [A Best Practice for Root CA Key Update in PKI](https://link.springer.com/content/pdf/10.1007%2F978-3-540-24852-1_20.pdf)
 
 ### RFCs
