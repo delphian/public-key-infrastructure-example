@@ -40,6 +40,8 @@ __***For HomeLab Experimentation Only***__
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
   * Create root Certificate Authority (CA) certificate and self sign with private key <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
     * Enter the root CA private key pass phrase
+    * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
+      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`
   * Create root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
     * Enter the root CA private key pass phrase
 
