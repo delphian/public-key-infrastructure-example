@@ -1,7 +1,8 @@
-# Execute on OCSP responder host.
-DIR="/root/ca/ocsp"
-DIR_CA_CERTS="/root/ca/certs"
-DOMAIN="guardtone"
+# Execute on OCSP responder host
+DIR="/root/ca"
+CERT_URL="ocsp.guardtone.com"
+CERT_NAME="Root CA OCSP Responder"
+CONFIG="./root_ca_openssl.cnf"
 
 # Abort script if any error is encountered
 set -e
@@ -9,21 +10,20 @@ set -e
 if [ ! -d ${DIR} ]; then
 	printf "\n>> Generating ${DIR} directory structure...\n"
 	mkdir -p "${DIR}/private" "${DIR}/csr" "${DIR}/certs"
-	mkdir -p "${DIR_CA_CERTS}"
 fi
 # Generate root ocsp responder private key and encrypt
-if [ ! -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
-	printf "\n>> Generating root Certificate Authority (CA) private OCSP responder key and encrypting...\n\n"
-	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/ocsp.${DOMAIN}.com.key.pem"
+if [ ! -f ${DIR}/private/${CERT_URL}.key.pem ]; then
+	printf "\n>> Generating ${CERT_NAME} key and encrypting...\n\n"
+	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/${CERT_URL}.key.pem"
 fi
-# Generate root ocsp responder Certificate Signing Request (CSR)
-if [ ! -f ${DIR}/csr/ocsp.${DOMAIN}.com.csr ]; then
-	printf "\n>> Generating root CA OCSP responder Certificate Signing Request (CSR)...\n"
-	printf "!! Common Name should be: ocsp.${DOMAIN}.com !!\n\n"
-	openssl req -config "./openssl_root.cnf" -new -key "${DIR}/private/ocsp.${DOMAIN}.com.key.pem" -out "${DIR}/csr/ocsp.${DOMAIN}.com.csr"
+# Generate Certificate Signing Request (CSR)
+if [ ! -f ${DIR}/csr/${CERT_URL}.csr ]; then
+	printf "\n>> Generating ${CERT_NAME} Certificate Signing Request (CSR)...\n"
+	printf "!! Common Name should be: ${CERT_URL} !!\n\n"
+	openssl req -config "${CONFIG}" -new -key "${DIR}/private/${CERT_URL}.key.pem" -out "${DIR}/csr/${CERT_URL}.csr"
 fi
 # Print summary
-if [ -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
-	printf "\n\n>> New OCSP private key:\t\t${DIR}/private/ocsp.${DOMAIN}.crt.pem"
-	printf "\n>> New OCSP certificate request:\t${DIR}/csr/ocsp.${DOMAIN}.com.csr\n"
+if [ -f ${DIR}/private/${CERT_URL}.key.pem ]; then
+	printf "\n\n>> New ${CERT_NAME} private key:\t\t\t${DIR}/private/${CERT_URL}.crt.pem"
+	printf "\n>> New ${CERT_NAME} certificate signing request:\t${DIR}/csr/${CERT_URL}.csr\n"
 fi
