@@ -10,6 +10,8 @@ ls "${DIR}/csr"
 printf "\nEnter file name of OCSP Certificate Signing Request (CSR) to sign. Ommit .csr extension: "
 read DOMAIN
 # Sign OCSP Certificate Signing Request (CSR)
+# In practice 3650 days creates an _unrevocable_ OCSP signing certificate.
+# If this was not a homelab, and serving an offline root CA, 3650 days should be more like 14 or even 7.
 if [ -f "${DIR}/csr/${DOMAIN}.csr" ]; then
 	printf "\n>> Signing ${DOMAIN}.csr...\n\n"
 	openssl ca -config "./openssl_root.cnf" -extensions ocsp -days 3650 -md sha384 -in "${DIR}/csr/${DOMAIN}.csr" -out "${DIR}/certs/${DOMAIN}.crt.pem"
