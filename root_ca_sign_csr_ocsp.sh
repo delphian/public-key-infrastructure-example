@@ -2,7 +2,7 @@
 DIR="/root/ca"
 # ocsp | v3_intermediate_ca | server_cert
 EXTENSIONS="ocsp"
-DAYS="3650"
+DAYS="14"
 CONFIG="./root_ca_openssl.cnf"
 
 # Abort script if any error is encountered
