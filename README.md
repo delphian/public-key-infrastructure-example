@@ -23,14 +23,7 @@ __***For HomeLab Experimentation Only***__
   * (__Never restore this machine's connection to a network__)
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
-* Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    ```bash
-    sed -i -- 's/GuardTone/MyHomeLab/g' *
-    ```
-* Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    ```bash
-    sed -i -- 's/guardtone/myhomelab/g' *
-    ```
+*
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the root Certificate Authority (CA) initialization script
     ```bash
@@ -52,14 +45,7 @@ __***For HomeLab Experimentation Only***__
 * Install Ubuntu Server (in our case 16) with LAMP package
 * From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
 * Enter script repository `cd public-key-infrastructure-example`
-* Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    ```bash
-    sed -i -- 's/GuardTone/MyHomeLab/g' *
-    ```
-* Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    ```bash
-    sed -i -- 's/guardtone/myhomelab/g' *
-    ```
+*
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
@@ -119,9 +105,17 @@ __***For HomeLab Experimentation Only***__
     -nrequest 1
     ```
 
-## Customize OpenSSL Config File
+## Customize All Files for your Domain
+* Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
+    ```bash
+    sed -i -- 's/GuardTone/MyHomeLab/g' *
+    ```
+* Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
+    ```bash
+    sed -i -- 's/guardtone/myhomelab/g' *
+    ```
 
-### For ub16-ca-offline (offline root Certificate Authority)
+## Customize OpenSSL Config File
 * Edit `openssl-root.cnf`
 * Replace the geographic location variables with appropriate values
     ```bash
