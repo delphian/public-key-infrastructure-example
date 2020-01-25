@@ -22,7 +22,7 @@ fi
 # Generate certificate
 if [ ! -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
 	printf "\n>> Generating ${CERT_NAME} certificate and self signing...\n"
-	printf "   **** Common Name should be: ${CERT_NAME} Certificate Authority ****\n\n"
+	printf "   **** Common Name should be: ${CERT_NAME} ****\n\n"
 	openssl req -config "${CONFIG}" \
 	            -new -x509 -sha384 \
 		    -extensions v3_ca \
