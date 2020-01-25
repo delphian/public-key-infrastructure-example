@@ -7,12 +7,12 @@ set -e
 # Create directory structure
 if [ ! -d ${DIR} ]; then
 	printf "\n>> Generating ${DIR} directory structure...\n"
-	mkdir -p ${DIR}/private ${DIR}/csr ${DIR}/certs
+	mkdir -p "${DIR}/private" "${DIR}/csr" "${DIR}/certs"
 fi
 # Generate root ocsp responder private key and encrypt
 if [ ! -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
 	printf "\n>> Generating root Certificate Authority (CA) private OCSP responder key and encrypting...\n\n"
-	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out ${DIR}/private/ocsp.${DOMAIN}.com.key.pem
+	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/ocsp.${DOMAIN}.com.key.pem"
 fi
 # Generate root ocsp responder Certificate Signing Request (CSR)
 if [ ! -f ${DIR}/csr/ocsp.${DOMAIN}.com.csr ]; then
