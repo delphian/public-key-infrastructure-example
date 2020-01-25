@@ -2,7 +2,6 @@
 DIR="/root/ca"
 CERT_URL="ca-offline.guardtone.com"
 CERT_NAME="Root GuardTone Certificate Authority"
-EXTENSIONS="v3_ca"
 CONFIG="./root_ca_openssl.cnf"
 
 # Abort script if any error is encountered
@@ -21,12 +20,12 @@ if [ ! -f "${DIR}/private/${CERT_URL}.key.pem" ]; then
 	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/${CERT_URL}.key.pem"
 fi
 # Generate certificate
-if [ ! -f "${DIR}/certs/${CA}.${DOMAIN}.crt.pem" ]; then
+if [ ! -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
 	printf "\n>> Generating ${CERT_NAME} certificate and self signing...\n"
 	printf "!! Common Name should be: ${CERT_NAME} Certificate Authority !!\n\n"
 	openssl req -config "${CONFIG}" \
 	            -new -x509 -sha384 \
-		    -extensions ${EXTENSIONS} \
+		    -extensions v3_ca \
 		    -key "${DIR}/private/${CERT_URL}.key.pem" \
 		    -out "${DIR}/certs/${CERT_URL}.crt.pem"
 fi
