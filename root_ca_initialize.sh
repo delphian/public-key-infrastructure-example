@@ -29,11 +29,6 @@ if [ ! -f "${DIR}/crl/revoked.crl" ]; then
 	printf "\n>> Generating root CA Certificate Revocation List (CRL)...\n\n"
 	openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "${DIR}/crl/revoked.crl"
 fi
-# Validate root Certificate Revocation List
-if [ -f "${DIR}/crl/revoked.crl" ]; then
-	printf "\n>> Validating root CA CRL...\n\n"
-	openssl crl -in "${DIR}/crl/revoked.crl" -noout -text
-fi
 # Print summary
 if [ -f "${DIR}/certs/ca.${DOMAIN}.crt.pem" ]; then
 	printf "\n\n>> New Root CA Certificate:\t\t\t\t${DIR}/certs/ca.${DOMAIN}.crt.pem"
