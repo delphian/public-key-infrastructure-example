@@ -34,7 +34,7 @@ __***For HomeLab Experimentation Only***__
     ```
   * Directory structure generated at `/root/ca`
   * Generates root Certificate Authority (CA) private key and encrypts <sub><sup>(/root/ca/private/ca.guardtone.key.pem)</sup></sub>
-    * (__*Do not echo the contents of this file to the terminal__*) (__*Do not transfer over a computer network*__)
+    * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
     * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
       * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
   * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate) <sub><sup>(/root/ca/certs/ca.guardtone.crt.pem)</sup></sub>
@@ -100,7 +100,6 @@ __***For HomeLab Experimentation Only***__
     cp /media/usb/ocsp.DOMAIN.com.crt.pem /root/ca/certs
     cp /media/usb/ca.DOMAIN.crt.pem /root/ca/ocsp/certs
     ```
-    
 * Launch OpenSSL in OCSP responder mode
     ```bash
     openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
