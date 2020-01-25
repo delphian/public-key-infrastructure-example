@@ -82,16 +82,19 @@ __***For HomeLab Experimentation Only***__
 ### On ub16-ca-offline (offline root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake
     ```bash
-    cp /media/usb/ocsp.DOMAIN.com.csr /root/ca/csr
+    cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
     ```
-* Execute `./root_ca_sign_ocsp_csr.sh`
+* Execute the Certificate Signing Request (CSR) processor script
+    ```bash
+    ./root_ca_sign_ocsp_csr.sh`
+    ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP host Certificate Signing Request (CSR) by typing `ocsp.DOMAIN.com`, omitting the .csr file extension.
-  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.DOMAIN.com.crt.pem)</sup></sub>
+  * Sign OCSP host Certificate Signing Request (CSR) creating the OCSP host certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
 * Copy the OCSP responder host certificate to a usb thumbdrive
     ```bash
-    cp /root/ca/certs/ocsp.DOMAIN.com.crt.pem /media/usb
+    cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
     ```
 * Copy the root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
     ```bash
