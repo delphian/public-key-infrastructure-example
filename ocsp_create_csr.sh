@@ -1,5 +1,6 @@
 # Execute on OCSP responder host.
 DIR="/root/ca/ocsp"
+DIR_CA_CERTS="/root/ca/certs"
 DOMAIN="guardtone"
 
 # Abort script if any error is encountered
@@ -8,6 +9,7 @@ set -e
 if [ ! -d ${DIR} ]; then
 	printf "\n>> Generating ${DIR} directory structure...\n"
 	mkdir -p "${DIR}/private" "${DIR}/csr" "${DIR}/certs"
+	mkdir -p "${DIR_CA_CERTS}"
 fi
 # Generate root ocsp responder private key and encrypt
 if [ ! -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
