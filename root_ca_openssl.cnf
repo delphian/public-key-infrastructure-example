@@ -1,5 +1,4 @@
 # OpenSSL Root CA configuration file
-# Copy to /root/ca/openssl_root.cnf
 
 [ ca ]
 default_ca = CA_default
