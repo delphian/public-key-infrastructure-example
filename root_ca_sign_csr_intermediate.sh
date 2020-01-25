@@ -19,7 +19,7 @@ if [ -f "${DIR}/csr/${CERT_URL}.csr" ]; then
 	           -extensions ${EXTENSIONS} \
 		   -days ${DAYS} \
 		   -md sha384 \
-		   -in "${DIR}/csr/${CERT_URL}" \
+		   -in "${DIR}/csr/${CERT_URL}.csr" \
 		   -out "${DIR}/certs/${CERT_URL}.crt.pem"
 fi
 # Validate signed certificate
