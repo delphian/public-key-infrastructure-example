@@ -21,9 +21,12 @@ __***For HomeLab Experimentation Only***__
 * Install Ubuntu Server (in our case 16)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
   * (__Never restore this machine's connection to a network__)
-* From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
-* Enter script repository `cd public-key-infrastructure-example`
-*
+* From non priviledged user directory clone and enter repository
+    ```bash
+    git clone https://github.com/delphian/public-key-infrastructure-example.git
+    cd public-key-infrastructure-example
+    ```
+* [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the root Certificate Authority (CA) initialization script
     ```bash
@@ -43,9 +46,12 @@ __***For HomeLab Experimentation Only***__
 
 ### On ub16-ca (OCSP responder and Certficiate Revocation List host)
 * Install Ubuntu Server (in our case 16) with LAMP package
-* From non priviledged user directory: `git clone https://github.com/delphian/public-key-infrastructure-example.git`
-* Enter script repository `cd public-key-infrastructure-example`
-*
+* From non priviledged user directory clone and enter repository
+    ```bash
+    git clone https://github.com/delphian/public-key-infrastructure-example.git
+    cd public-key-infrastructure-example
+    ```
+* [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
 * [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
@@ -123,8 +129,6 @@ __***For HomeLab Experimentation Only***__
     stateOrProvinceName_default     = California
     localityName_default            = Victorville
     ```
-
-### For ub16-ca (OCSP responder and Certficiate Revocation List host)
 
 ## Resources
 
