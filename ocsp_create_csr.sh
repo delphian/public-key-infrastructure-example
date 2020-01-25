@@ -18,7 +18,7 @@ fi
 if [ ! -f ${DIR}/csr/ocsp.${DOMAIN}.com.csr ]; then
 	printf "\n>> Generating root CA OCSP responder Certificate Signing Request (CSR)...\n"
 	printf "!! Common Name should be: ocsp.${DOMAIN}.com !!\n\n"
-	openssl req -config "./openssl_root.cnf" -new -key "${DIR}/private/ocsp.${DOMAIN}.com.key.pem" -out "${DIR}/csr/ocsp.${DOMAIN}.com.csr" -extensions "server_cert"
+	openssl req -config "./openssl_root.cnf" -new -key "${DIR}/private/ocsp.${DOMAIN}.com.key.pem" -out "${DIR}/csr/ocsp.${DOMAIN}.com.csr"
 fi
 # Print summary
 if [ -f ${DIR}/private/ocsp.${DOMAIN}.com.key.pem ]; then
