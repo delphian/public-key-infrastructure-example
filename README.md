@@ -92,14 +92,13 @@ __***For HomeLab Experimentation Only***__
 * Copy the root Certificate Authority (CA) Certificate, OCSP host Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
     sudo cp /media/usb/index.txt /root/ca
-    sudo cp /media/usb/ocsp.guardtone.com.crt.pem /root/ca/ocsp/certs
-    sudo cp /media/usb/ca.guardtone.crt.pem /root/ca/certs
+    sudo cp /media/usb/ca.guardtone.crt.pem /media/usb/ocsp.guardtone.com.crt.pem /root/ca/ocsp/certs
     ```
 * Launch OpenSSL in OCSP responder mode (as root?)
     ```bash
     sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
     -index "/root/ca/index.txt" \
-    -CA "/root/ca/certs/ca.guardtone.crt.pem" \
+    -CA "/root/ca/ocsp/certs/ca.guardtone.crt.pem" \
     -rkey "/root/ca/ocsp/private/ocsp.guardtone.com.key.pem" \
     -rsigner "/root/ca/ocsp/certs/ocsp.guardtone.com.crt.pem" \
     -nrequest 1
