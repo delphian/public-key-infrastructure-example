@@ -5,7 +5,7 @@ DIR="/root/ca"
 # Abort script if any error is encountered
 set -e
 # Enumerate potential Certificate Signing Requests (CSR)
-ls "{$DIR}/csr"
+ls "${DIR}/csr"
 # Choose OCSP CSR to sign
 printf "\nEnter file name of OCSP Certificate Signing Request (CSR) to sign. Ommit .csr extension: "
 read DOMAIN
