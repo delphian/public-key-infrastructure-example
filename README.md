@@ -27,7 +27,7 @@ __***For HomeLab Experimentation Only***__
     cd public-key-infrastructure-example
     ```
 * [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
-* [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
+* [Customize root_ca_openssl.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the root Certificate Authority (CA) initialization script
     ```bash
     sudo ./root_ca_initialize.sh
@@ -52,7 +52,7 @@ __***For HomeLab Experimentation Only***__
     cd public-key-infrastructure-example
     ```
 * [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
-* [Customize openssl_root.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
+* [Customize root_ca_openssl.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
     sudo ./ocsp_create_csr.sh
