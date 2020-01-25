@@ -133,6 +133,7 @@ __***For HomeLab Experimentation Only***__
 Overview](http://highsecu.free.fr/db/outils_de_securite/cryptographie/pki/publickey.pdf)
 * [Design and Implementation of PKI (For Multi Domain
 Environment)](https://pdfs.semanticscholar.org/cfb9/77539d4a214766adc3a4a56f57a5a464b9cf.pdf)
+* [HTTPS in the Real World](https://robertheaton.com/2018/11/28/https-in-the-real-world/)
 * [A Best Practice for Root CA Key Update in PKI](https://link.springer.com/content/pdf/10.1007%2F978-3-540-24852-1_20.pdf)
 
 ### Tutorials and Walkthroughs
