@@ -103,6 +103,7 @@ __***For HomeLab Experimentation Only***__
     -rsigner "/root/ca/ocsp/certs/ocsp.guardtone.com.crt.pem" \
     -nrequest 1
     ```
+  * Enter the OCSP responder host private key pass phrase
 
 ## Customize All Files for your Domain
 * Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
