@@ -14,7 +14,7 @@ read DOMAIN
 # If this was not a homelab, and serving an offline root CA, 3650 days should be more like 14 or even 7.
 if [ -f "${DIR}/csr/${DOMAIN}.csr" ]; then
 	printf "\n>> Signing ${DOMAIN}.csr...\n\n"
-	openssl ca -config "./openssl_root.cnf" -extensions ocsp -days 3650 -md sha384 -in "${DIR}/csr/${DOMAIN}.csr" -out "${DIR}/certs/${DOMAIN}.crt.pem"
+	openssl ca -config "./openssl_root.cnf" -extensions ocsp -days 3650 -md sha384 -in "${DIR}/csr/${DOMAIN}" -out "${DIR}/certs/${DOMAIN}.crt.pem"
 fi
 # Validate OCSP responder certificate
 if [ -f "${DIR}/certs/${DOMAIN}.crt.pem" ]; then
