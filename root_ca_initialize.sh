@@ -22,8 +22,7 @@ fi
 # Generate certificate
 if [ ! -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
 	printf "\n>> Generating ${CERT_NAME} certificate and self signing...\n"
-	echo -e "\e[92m!! Common Name should be: ${CERT_NAME} Certificate Authority !!\e[0m"
-	printf "\n\n"
+	printf '\e[92m' "!! Common Name should be: ${CERT_NAME} Certificate Authority !!" '\e[0m' "\n\n"
 	openssl req -config "${CONFIG}" \
 	            -new -x509 -sha384 \
 		    -extensions v3_ca \
@@ -37,8 +36,6 @@ if [ ! -f "${DIR}/crl/revoked.crl" ]; then
 fi
 # Summary
 if [ -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
-	printf "\n\n"
-	echo -e "\e[92m>> ${CERT_NAME} certificate:\t\t\t\t${DIR}/certs/${CERT_URL}.crt.pem"
-	echo -e ">> ${CERT_NAME} Certificate Revocation List (CRL):\t${DIR}/crl/revoked.crl\e[0m"
-	printf "\n\n"
+	printf "\n\n" '\e[92m' ">> ${CERT_NAME} certificate:\t\t\t\t${DIR}/certs/${CERT_URL}.crt.pem" "\n"
+	printf ">> ${CERT_NAME} Certificate Revocation List (CRL):\t${DIR}/crl/revoked.crl" '\e[0m' "\n\n"
 fi
