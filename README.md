@@ -130,25 +130,26 @@ __***For HomeLab Experimentation Only***__
 
 * ca-offline.guardtone.com
   * `/home/ca`
+    * `private` - Private/Public key pair (of the Root CA)
     * `crs` - Certificate requests to be processed by the Root CA (Probably from intermediates or Root CA OCSP host)
     * `certs` - Certificates signed by the Root CA (Including our self signed cert)
-    * `private` - Private/Public key pair (of the Root CA)
     * `crl` - List of all certificates revoked by the Root CA
 * ca.guardtone.com
-  * `/home/ca`
+  * `/home/ca/ocsp`
     * `private` - Private/Public key pair (of OCSP host)
+    * `crs` - OCSP Certificate Signing Request for presentation to the Root CA
     * `certs` - Certificates signed by the Root CA (OCSP host certificate for apache)
 * ca-public.guardtone.com
-  * `/home/ca`
-    * `crs` - Certificate requests to be processed by intermediate public CA
-    * `certs` - Certificates signed by intermediate public CA (Including intermediate public's own certificate signed by Root CA)
+  * `/home/ca/intermediate/public`
     * `private` - Private/Public key pair (of intermediate public CA)
+    * `crs` - Certificate requests to be processed by intermediate public CA (Including our own request to the Root CA)
+    * `certs` - Certificates signed by intermediate public CA (Including intermediate public's own certificate signed by Root CA)
     * `crl` - List of all certificate revoked by the intermediate public CA
 * ca.home.guardtone.com
-  * `/home/ca`
-    * `crs` - Certificate requests to be processed by intermediate home CA
-    * `certs` - Certificates signed by intermediate home CA (Including intermediate home's own certificate signed by Root CA)
+  * `/home/ca/intermediate/home`
     * `private` - Private/Public key pair (of intermediate home CA)
+    * `crs` - Certificate requests to be processed by intermediate home CA (Including ou own request to the Root CA)
+    * `certs` - Certificates signed by intermediate home CA (Including intermediate home's own certificate signed by Root CA)
     * `crl` - List of all certificate revoked by the intermediate home CA
 
 ## Resources
