@@ -19,61 +19,64 @@ __***For HomeLab Experimentation Only***__
  
 ## Installation
 <sup><sub>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</sub></sup>
-### On ub16-ca-offline (offline root Certificate Authority)
-* Install Ubuntu Server (in our case 16)
-* Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
-  * (__Never restore this machine's connection to a network__)
+
+### Provision All Machines
+* Install Ubuntu Server 16.04 with LAMP stack and SSH server packages on all machines
 * From non priviledged user directory clone and enter repository
     ```bash
     git clone https://github.com/delphian/public-key-infrastructure-example.git
     cd public-key-infrastructure-example
     ```
-* [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
-* [Customize root_ca_openssl.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
+### Customize Variables After Cloning Repository
+
+#### Customize All Files for your Domain
+* Replace all instances of camel case `GuardTone`, and lowecase `guardtone` with your domain name
+    ```bash
+    sed -i -- 's/GuardTone/MyHomeLab/g' *
+    sed -i -- 's/guardtone/myhomelab/g' *
+    ```
+
+#### Customize All OpenSSL Config Files
+* Edit `*-openssl.cnf`
+* Replace the geographic location variables with appropriate values
+    ```bash
+    countryName_default             = US
+    stateOrProvinceName_default     = California
+    localityName_default            = Victorville
+    ```
+
+### ca-offline.guardtone.com (Offline Root Certificate Authority)
+* Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
 * Execute the root Certificate Authority (CA) initialization script
     ```bash
     sudo ./root_ca_initialize.sh
     ```
-  * Directory structure generated at `/root/ca`
-  * Generates root Certificate Authority (CA) private key and encrypts <sub><sup>(/root/ca/private/ca-offline.guardtone.com.key.pem)</sup></sub>
-    * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
+  * Generates root Certificate Authority (CA) private key and encrypts
     * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
-      * (__*Do not transfer over a computer network*__) (__*Do not store on a network attached device*__)
-  * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate) <sub><sup>(/root/ca/certs/ca-offline.guardtone.com.crt.pem)</sup></sub>
+  * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate)
     * Enter the root CA private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. *Common Name could be `GuardTone Root Certificate Authority`*
-  * Generates root Certificate Authority (CA) Certificate Revocation List (CRL) <sub><sup>(/root/ca/crl/revoked.crl)</sup></sub>
+      * __Common Name could be `GuardTone Root Certificate Authority`__
+  * Generates root Certificate Authority (CA) Certificate Revocation List (CRL)
     * Enter the root CA private key pass phrase
 
-### On ub16-ca (OCSP responder and Certficiate Revocation List host)
-* Install Ubuntu Server (in our case 16) with LAMP package
-* From non priviledged user directory clone and enter repository
-    ```bash
-    git clone https://github.com/delphian/public-key-infrastructure-example.git
-    cd public-key-infrastructure-example
-    ```
-* [Customize all files for your domain](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-all-files-for-your-domain)
-* [Customize root_ca_openssl.cnf](https://github.com/delphian/public-key-infrastructure-example/blob/master/README.md#customize-openssl-config-file)
+### ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
     sudo ./root_ca_create_csr_ocsp.sh
     ```
-  * Directory structure generated at `/root/ca/ocsp`
-  * Generates OCSP responder private key and encrypt <sub><sup>(`/root/ca/private/ocsp.guardtone.com.key.pem`)</sup></sub>
-    * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
+  * Generates OCSP responder private key and encrypt
     * Supply a PEM pass phrase for the OCSP responder host private key and verify. Save to a safe location
-      * (__*Do not echo the contents of this file to the terminal*__) (__*Do not transfer over a computer network*__)
-  * Generates OCSP responder Certificate Signing Request <sub><sup>(/root/ca/csr/ocsp.guardtone.com.csr)</sup></sub>
+  * Generates OCSP responder Certificate Signing Request
     * Enter the OCSP responder private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * `Country Name`, `State or Province Name`, `Locality Name`, `Organization Name`, `Organization Unit Name`, `Common Name`, and contact `Email Address`. __*Common Name must be `ocsp.guardtone.com`*__
+      * __*Common Name must be `ocsp.guardtone.com`*__
     * Copy the OCSP responder Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
     sudo cp /root/ca/csr/ocsp.guardtone.com.csr /media/usb
     ```
 
-### On ub16-ca-offline (offline root Certificate Authority)
+### ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
     ```bash
     sudo cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
@@ -81,7 +84,7 @@ __***For HomeLab Experimentation Only***__
     ````
   * A list of potential Certificate Signing Requests (CSRs) will be displayed.
     * Select the OCSP responder Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
-  * Sign OCSP responder Certificate Signing Request (CSR) creating the __poor practice__<sup>1</sup> OCSP responder certificate <sub><sup>(/root/ca/certs/ocsp.guardtone.com.crt.pem)</sup></sub>
+  * Sign OCSP responder Certificate Signing Request (CSR) creating the __poor practice__<sup>1</sup> OCSP responder certificate
     * Supply the previously created PEM password of the root Certificate Authority (CA) private key
     * Confirm the signing, twice
 * Copy the OCSP responder certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
@@ -90,7 +93,7 @@ __***For HomeLab Experimentation Only***__
     sudo cp /root/ca/certs/ca-offline.guardtone.com.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
 
-### On ub16-ca (OCSP responder and Certficiate Revocation List host)
+### ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
     sudo cp /media/usb/index.txt /root/ca
@@ -106,25 +109,6 @@ __***For HomeLab Experimentation Only***__
     -nrequest 1
     ```
   * Enter the OCSP responder host private key pass phrase
-
-## Customize All Files for your Domain
-* Replace all instances of `GuardTone` with your domain name. Eg `Google` or `MyHomeLab`
-    ```bash
-    sed -i -- 's/GuardTone/MyHomeLab/g' *
-    ```
-* Replace all instances of `guardtone` with your domain name. Eg `google` or `myhomelab`
-    ```bash
-    sed -i -- 's/guardtone/myhomelab/g' *
-    ```
-
-## Customize OpenSSL Config File
-* Edit `openssl-root.cnf`
-* Replace the geographic location variables with appropriate values
-    ```bash
-    countryName_default             = US
-    stateOrProvinceName_default     = California
-    localityName_default            = Victorville
-    ```
 
 ## Resulting File Structure
 
