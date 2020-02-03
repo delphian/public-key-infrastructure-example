@@ -12,9 +12,10 @@ __***For HomeLab Experimentation Only***__
 
 #### 3 Machines
 <sup><sub>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</sub></sup>
- - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04
- - *ub16-ca*: Host the OCSP responder and CRL host for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack
- - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack
+ - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ SSH
+ - *ub16-ca*: Host the OCSP responder and CRL host for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack and SSH
+ - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack and SSH
+ - *ub16-ca-public*: The intermediate Certificate Authority (CA) for internet. Running Ubuntu 16.04 /w LAMP stack and SSH
  
 ## Installation
 <sup><sub>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</sub></sup>
@@ -124,6 +125,12 @@ __***For HomeLab Experimentation Only***__
     stateOrProvinceName_default     = California
     localityName_default            = Victorville
     ```
+
+## File Structure
+
+* ub16-ca-offline
+  * /home/ca
+    * crs __Certificate requests to be processed by the Root CA. Probably from intermediates or Root CA OCSP host__
 
 ## Resources
 
