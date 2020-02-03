@@ -1,5 +1,5 @@
 # Create a new private key and certificate signing request
-DIR="/root/ca"
+DIR="/root/ca/ocsp"
 CERT_URL="ocsp.guardtone.com"
 CERT_NAME="Root CA OCSP Responder"
 CONFIG="./root_ca_openssl.cnf"
