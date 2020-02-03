@@ -10,8 +10,7 @@ __***For HomeLab Experimentation Only***__
 
 ## Prerequisites
 
-#### 4 Boxes
-<sup><sub>__The file structure is constructed so that all scripts and services may be run on a single machine for testing purposes__</sub></sup>
+#### 4 Boxes <sup><sub>__The file structure is constructed so that all scripts and services may be run on a single machine for testing purposes__</sub></sup>
  - Box __ca-offline.guardtone.com__: Offline root Certificate Authority (CA)
  - Box __ca.guardtone.com__: OCSP responder and CRL host for offline root Certificate Authority (CA)
  - Box __ca.home.guardtone.com__: Intermediate Certificate Authority (CA) for ___intranet___
