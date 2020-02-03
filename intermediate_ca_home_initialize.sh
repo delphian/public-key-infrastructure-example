@@ -1,5 +1,5 @@
 # Initialize a Certificate Authority
-DIR="/root/ca"
+DIR="/root/ca/intermediate/home"
 CERT_URL="ca.home.guardtone.com"
 CERT_NAME="Home GuardTone Certificate Authority"
 CONFIG="./intermediate_ca_home_openssl.cnf"
@@ -26,7 +26,7 @@ if [ ! -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
 	openssl req -config "${CONFIG}" \
 	            -new -sha384 \
 		    -key "${DIR}/private/${CERT_URL}.key.pem" \
-		    -out "${DIR}/csr/${CERT_URL}.crs"
+		    -out "./${CERT_URL}.crs"
 fi
 # Create Certificate Revocation List
 if [ ! -f "${DIR}/crl/revoked.crl" ]; then
@@ -35,6 +35,6 @@ if [ ! -f "${DIR}/crl/revoked.crl" ]; then
 fi
 # Summary
 if [ -f "${DIR}/certs/${CERT_DOMAIN}.crt.pem" ]; then
-	printf "\n\n>> New ${CERT_NAME} Certificate Signing Request (CSR):\t${DIR}/certs/${CERT_URL}.csr"
+	printf "\n\n>> New ${CERT_NAME} Certificate Signing Request (CSR):\t./${CERT_URL}.csr"
 	printf "\n>> New ${CERT_NAME} Certificate Revocation List (CRL):\t\t${DIR}/crl/revoked.crl\n\n"
 fi
