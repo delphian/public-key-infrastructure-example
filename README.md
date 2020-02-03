@@ -10,15 +10,14 @@ __***For HomeLab Experimentation Only***__
 
 ## Prerequisites
 
-#### 3 Machines
-<sup><sub>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</sub></sup>
- - *ub16-ca-offline*: The offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ SSH
- - *ub16-ca*: Host the OCSP responder and CRL host for the offline root Certificate Authority (CA). Running Ubuntu 16.04 w/ LAMP stack and SSH
- - *ub16-ca-home*: The intermediate Certificate Authority (CA) for intranet. Running Ubuntu 16.04 w/ LAMP stack and SSH
- - *ub16-ca-public*: The intermediate Certificate Authority (CA) for internet. Running Ubuntu 16.04 /w LAMP stack and SSH
+#### 4 Boxes
+<sup><sub>__The file structure is consturcted so that all scripts and services may be run on a single machine for testing purposes__</sub></sup>
+ - Box __ca-offline.guardtone.com__: Offline root Certificate Authority (CA)
+ - Box __ca.guardtone.com__: OCSP responder and CRL host for offline root Certificate Authority (CA)
+ - Box __ca.home.guardtone.com__: Intermediate Certificate Authority (CA) for ___intranet___
+ - Box __ca-public.guardtone.com__: Intermediate Certificate Authority (CA) for ___internet___
  
 ## Installation
-<sup><sub>*For HomeLab testing all services may run on a single machine, simply omit all the manual file copying*</sub></sup>
 
 ### Provision All Machines
 * Install Ubuntu Server 16.04 with LAMP stack and SSH server packages on all machines
@@ -45,7 +44,7 @@ __***For HomeLab Experimentation Only***__
     localityName_default            = Victorville
     ```
 
-### ca-offline.guardtone.com (Offline Root Certificate Authority)
+### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
 * Execute the root Certificate Authority (CA) initialization script
     ```bash
@@ -60,7 +59,7 @@ __***For HomeLab Experimentation Only***__
   * Generates root Certificate Authority (CA) Certificate Revocation List (CRL)
     * Enter the root CA private key pass phrase
 
-### ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
+### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Execute the OCSP responder Certificate Signing Request (CSR) creation script
     ```bash
     sudo ./root_ca_create_csr_ocsp.sh
@@ -76,7 +75,7 @@ __***For HomeLab Experimentation Only***__
     sudo cp /root/ca/csr/ocsp.guardtone.com.csr /media/usb
     ```
 
-### ca-offline.guardtone.com (Offline Root Certificate Authority)
+### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
     ```bash
     sudo cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
@@ -93,7 +92,7 @@ __***For HomeLab Experimentation Only***__
     sudo cp /root/ca/certs/ca-offline.guardtone.com.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
     ```
 
-### ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
+### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
     ```bash
     sudo cp /media/usb/index.txt /root/ca
