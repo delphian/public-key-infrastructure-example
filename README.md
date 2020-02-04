@@ -70,26 +70,25 @@ __***For HomeLab Experimentation Only***__
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Create file structure
   ```bash
-  sudo mkdir -p "/root/ca/certs" "/root/ca/crl"
-  sudo mkdir -p "/root/ca/ocsp/private" "/root/ca/ocsp/csr" "/root/ca/ocsp/certs" "/root/ca/ocsp/crl"
+  sudo mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
   ```
 * Create OCSP Resolver private key and CSR. ___CN must be `ocsp.ca.guardtone.com`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem"
+     | openssl ec -aes256 -out "/root/ca/private/ocsp.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
-                   -key "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem" \
-                   -out "/root/ca/ocsp/csr/ocsp.ca.guardtone.com.csr"
+                   -key "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
+                   -out "/root/ca/csr/ocsp.ca.guardtone.com.csr"
   ```
 * Create CRL host private key and CSR. ___CN must be `crl.ca.guardtone.com`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem"
+     | openssl ec -aes256 -out "/root/ca/private/crl.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
-                   -key "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem" \
-                   -out "/root/ca/ocsp/csr/crl.ca.guardtone.com.csr"
+                   -key "/root/ca/private/crl.ca.guardtone.com.key.pem" \
+                   -out "/root/ca/csr/crl.ca.guardtone.com.csr"
   ```
 * Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
 
