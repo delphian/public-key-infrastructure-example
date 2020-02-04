@@ -78,21 +78,11 @@ __***For HomeLab Experimentation Only***__
 * Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
-* Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
+* Execute the Certificate Signing Request (CSR) processor script
     ```bash
-    sudo cp /media/usb/ocsp.guardtone.com.csr /root/ca/csr
     sudo ./root_ca_sign_csr_ocsp.sh`
     ````
-  * A list of potential Certificate Signing Requests (CSRs) will be displayed.
-    * Select the OCSP responder Certificate Signing Request (CSR) by typing `ocsp.guardtone.com`, omitting the .csr file extension.
-  * Sign OCSP responder Certificate Signing Request (CSR) creating the __poor practice__<sup>1</sup> OCSP responder certificate
-    * Supply the previously created PEM password of the root Certificate Authority (CA) private key
-    * Confirm the signing, twice
-* Copy the OCSP responder certificate, root Certificate Authority (CA) Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) to a usb thumbdrive
-    ```bash
-    sudo cp /root/ca/certs/ocsp.guardtone.com.crt.pem /media/usb
-    sudo cp /root/ca/certs/ca-offline.guardtone.com.crt.pem /root/ca/crl/revoked.crl /root/ca/index.txt /media/usb
-    ```
+* Copy the certificates back to ca.guardtone.com
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
