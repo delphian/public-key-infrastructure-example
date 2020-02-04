@@ -51,12 +51,6 @@ __***For HomeLab Experimentation Only***__
   sudo touch "/root/ca/index.txt"
   sudo echo 1000 > "/root/ca/serial"
   sudo echo 1000 > "/root/ca/crlnumber"
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
-  sudo openssl req -config "./root_ca_openssl.cnf" \
-            -new -x509 -sha384 \
-            -extensions v3_ca \
-            -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
-            -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
   ```
 * Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
   ```bash
