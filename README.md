@@ -130,7 +130,7 @@ __***For HomeLab Experimentation Only***__
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
-* Create Intermediate CA private key and CSR. ___CN could be CN could be `GuardTone Intermediate Public Certificate Authority`___
+* Create Intermediate CA private key and CSR. ___CN could be `GuardTone Intermediate Public Certificate Authority`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem"
