@@ -54,14 +54,15 @@ __***For HomeLab Experimentation Only***__
   ```
 * Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
+  sudo openssl ecparam -genkey -name secp384r1 \
+     | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
             -new -x509 -sha384 \
             -extensions v3_ca \
             -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
             -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
   ```
-* Create CRL
+* Create (or update) CRL
   ```bash
   sudo openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
   ```
@@ -74,7 +75,8 @@ __***For HomeLab Experimentation Only***__
   ```
 * Create OCSP Resolver private key and CSR. ___CN must be `ocsp.ca.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem"
+  sudo openssl ecparam -genkey -name secp384r1 \
+     | openssl ec -aes256 -out "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
                    -key "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem" \
