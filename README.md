@@ -59,23 +59,23 @@ __***For HomeLab Experimentation Only***__
     * Enter the root CA private key pass phrase
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
-    * Create OCSP Resolver private key and CSR. CN must be `ocsp.ca.guardtone.com`
-      ```bash
-      sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "ocsp.ca.guardtone.com.key.pem"
-      sudo openssl req -config "./root_ca_openssl.cnf" \
-                       -new \
-                       -key "./ocsp.ca.guardtone.com.key.pem" \
-                       -out "./ocsp.ca.guardtone.com.csr"
-      ```
-    * Create CRL host private key and CSR. CN must be `crl.ca.guardtone.com`
-      ```bash
-      sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "crl.ca.guardtone.com.key.pem"
-      sudo openssl req -config "./root_ca_openssl.cnf" \
-                       -new \
-                       -key "./crl.ca.guardtone.com.key.pem" \
-                       -out "./crl.ca.guardtone.com.csr"
-      ```
-    * Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
+* Create OCSP Resolver private key and CSR. CN must be `ocsp.ca.guardtone.com`
+```bash
+sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "ocsp.ca.guardtone.com.key.pem"
+sudo openssl req -config "./root_ca_openssl.cnf" \
+                 -new \
+                 -key "./ocsp.ca.guardtone.com.key.pem" \
+                 -out "./ocsp.ca.guardtone.com.csr"
+```
+* Create CRL host private key and CSR. CN must be `crl.ca.guardtone.com`
+```bash
+sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "crl.ca.guardtone.com.key.pem"
+sudo openssl req -config "./root_ca_openssl.cnf" \
+                 -new \
+                 -key "./crl.ca.guardtone.com.key.pem" \
+                 -out "./crl.ca.guardtone.com.csr"
+```
+* Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
