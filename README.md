@@ -120,12 +120,12 @@ __***For HomeLab Experimentation Only***__
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
   ```bash
-  sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+  sudo openssl ocsp -port 2560 -text -sha256 \
                     -index "/root/ca/index.txt" \
                     -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
                     -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
                     -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" \
-                    -nrequest 1
+                    -nrequest 1 &
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
@@ -191,12 +191,12 @@ __***For HomeLab Experimentation Only***__
   ```
 * Launch the OCSP responder with OpenSSL
   ```bash
-  sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+  sudo openssl ocsp -port 2560 -text -sha256 \
                     -index "/root/ca/intermediate/public/index.txt" \
                     -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
                     -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
                     -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem" \
-                    -nrequest 1
+                    -nrequest 1 &
   ```
 
 ## Resulting File Structure
