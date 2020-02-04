@@ -121,8 +121,8 @@ keyUsage = critical, digitalSignature
 extendedKeyUsage = critical, OCSPSigning
 
 [crl_info]
-URI.0 = http://crl.guardtone.com/guardtone-revoked.crl
+URI.0 = http://crl.ca.guardtone.com/guardtone-ca-revoked.crl
 
 [ocsp_info]
-caIssuers;URI.0 = http://ocsp.guardtone.com/guardtone.crt
-OCSP;URI.0 = http://ocsp.guardtone.com/
+caIssuers;URI.0 = http://ocsp.ca.guardtone.com/guardtone-ca.crt
+OCSP;URI.0 = http://ocsp.ca.guardtone.com/
