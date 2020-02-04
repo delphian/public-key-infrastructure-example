@@ -1,41 +1,12 @@
 # Initialize a Certificate Authority
-DIR="/root/ca"
-CERT_URL="ca-offline.guardtone.com"
-CERT_NAME="Root GuardTone Certificate Authority"
-CONFIG="./root_ca_openssl.cnf"
-
-# Abort script if any error is encountered
-set -e
-# Create directory structure
-if [ ! -d "${DIR}" ]; then
-	printf "\n>> Generating ${DIR} directory structure...\n"
-	mkdir -p "${DIR}/private" "${DIR}/csr" "${DIR}/certs" "${DIR}/crl"
-	touch "${DIR}/index.txt"
-	echo 1000 > "${DIR}/serial"
-	echo 1000 > "${DIR}/crlnumber"
-fi
-# Generate private key and encrypt
-if [ ! -f "${DIR}/private/${CERT_URL}.key.pem" ]; then
-	printf "\n>> Generating ${CERT_NAME} private key and encrypting...\n\n"
-	openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "${DIR}/private/${CERT_URL}.key.pem"
-fi
-# Generate certificate
-if [ ! -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
-	printf "\n>> Generating ${CERT_NAME} certificate and self signing...\n"
-	printf "   **** Common Name should be: ${CERT_NAME} ****\n\n"
-	openssl req -config "${CONFIG}" \
-	            -new -x509 -sha384 \
-		    -extensions v3_ca \
-		    -key "${DIR}/private/${CERT_URL}.key.pem" \
-		    -out "${DIR}/certs/${CERT_URL}.crt.pem"
-fi
-# Create Certificate Revocation List
-if [ ! -f "${DIR}/crl/revoked.crl" ]; then
-	printf "\n>> Generating ${CERT_NAME} Certificate Revocation List (CRL)...\n\n"
-	openssl ca -config "${CONFIG}" -gencrl -out "${DIR}/crl/revoked.crl"
-fi
-# Summary
-if [ -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
-	printf "\n>> ${CERT_NAME} certificate:\t\t\t\t${DIR}/certs/${CERT_URL}.crt.pem\n"
-	printf ">> ${CERT_NAME} Certificate Revocation List (CRL):\t${DIR}/crl/revoked.crl\n\n"
-fi
+mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
+touch "/root/ca/index.txt"
+echo 1000 > "/root/ca/serial"
+echo 1000 > "/root/ca/crlnumber"
+openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
+openssl req -config "./root_ca_openssl.cnf" \
+            -new -x509 -sha384 \
+	    -extensions v3_ca \
+	    -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
+	    -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
+openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
