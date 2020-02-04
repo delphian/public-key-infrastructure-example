@@ -54,7 +54,7 @@ __***For HomeLab Experimentation Only***__
   * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate)
     * Enter the root CA private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * __Common Name could be `GuardTone Root Certificate Authority`__
+      * ___Common Name could be `GuardTone Root Certificate Authority`___
   * Generates root Certificate Authority (CA) Certificate Revocation List (CRL)
     * Enter the root CA private key pass phrase
 
@@ -68,10 +68,10 @@ __***For HomeLab Experimentation Only***__
   * Generates OCSP responder Certificate Signing Request
     * Enter the OCSP responder private key pass phrase
     * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * __*Common Name must be `ocsp.guardtone.com`*__
+      * ___Common Name must be `ocsp.ca.guardtone.com`___
     * Copy the OCSP responder Certificate Signing Request (CSR) to a usb thumbdrive
     ```bash
-    sudo cp /root/ca/csr/ocsp.guardtone.com.csr /media/usb
+    sudo cp /root/ca/csr/ocsp.ca.guardtone.com.csr /root/ca/csr/crl.ca.guardtone.com.csr /media/usb
     ```
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
