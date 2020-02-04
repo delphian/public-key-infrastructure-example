@@ -116,47 +116,37 @@ __***For HomeLab Experimentation Only***__
 * Copy CRL to ca.guardtone.com:/root/ca/crl
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
-* Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
-    ```bash
-    sudo cp /media/usb/index.txt /root/ca
-    sudo cp /media/usb/ca-offline.guardtone.com.crt.pem /media/usb/ocsp.guardtone.com.crt.pem /root/ca/certs
+* Launch the OCSP responder with OpenSSL
+  ```bash
+  sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
+                    -index "/root/ca/index.txt" \
+                    -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
+                    -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
+                    -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" \
+                    -nrequest 1
     ```
-* Launch OpenSSL in OCSP responder mode (as root?)
-    ```bash
-    sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
-                      -index "/root/ca/index.txt" \
-                      -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
-                      -rkey "/root/ca/private/ocsp.guardtone.com.key.pem" \
-                      -rsigner "/root/ca/certs/ocsp.guardtone.com.crt.pem" \
-                      -nrequest 1
-    ```
-  * Enter the OCSP responder host private key pass phrase
 
 ## Resulting File Structure
 
-* ca-offline.guardtone.com
-  * `/home/ca`
-    * `private` - Private/Public key pair (of the Root CA)
-    * `crs` - Certificate requests to be processed by the Root CA (Probably from intermediates or Root CA OCSP host)
-    * `certs` - Certificates signed by the Root CA (Including our self signed cert)
-    * `crl` - List of all certificates revoked by the Root CA
-* ca.guardtone.com
-  * `/home/ca/ocsp`
-    * `private` - Private/Public key pair (of OCSP host)
-    * `crs` - OCSP Certificate Signing Request for presentation to the Root CA
-    * `certs` - Certificates signed by the Root CA (OCSP host certificate for apache)
-* ca-public.guardtone.com
-  * `/home/ca/intermediate/public`
-    * `private` - Private/Public key pair (of intermediate public CA)
-    * `crs` - Certificate requests to be processed by intermediate public CA (Including our own request to the Root CA)
-    * `certs` - Certificates signed by intermediate public CA (Including intermediate public's own certificate signed by Root CA)
-    * `crl` - List of all certificate revoked by the intermediate public CA
-* ca.home.guardtone.com
-  * `/home/ca/intermediate/home`
-    * `private` - Private/Public key pair (of intermediate home CA)
-    * `crs` - Certificate requests to be processed by intermediate home CA (Including ou own request to the Root CA)
-    * `certs` - Certificates signed by intermediate home CA (Including intermediate home's own certificate signed by Root CA)
-    * `crl` - List of all certificate revoked by the intermediate home CA
+* `ca-offline.guardtone.com:/root/ca`
+  * `private` - Private/Public key pair (of the Root CA)
+  * `crs` - Certificate requests to be processed by the Root CA (Probably from intermediates or Root CA OCSP host)
+  * `certs` - Certificates signed by the Root CA (Including our self signed cert)
+  * `crl` - List of all certificates revoked by the Root CA
+* `ca.guardtone.com:/root/ca/ocsp`
+  * `private` - Private/Public key pair (of OCSP host)
+  * `crs` - OCSP Certificate Signing Request for presentation to the Root CA
+  * `certs` - Certificates signed by the Root CA (OCSP host certificate for apache)
+* `ca-public.guardtone.com:/root/ca/intermediate/public`
+  * `private` - Private/Public key pair (of intermediate public CA)
+  * `crs` - Certificate requests to be processed by intermediate public CA (Including our own request to the Root CA)
+  * `certs` - Certificates signed by intermediate public CA (Including intermediate public's own certificate signed by Root CA)
+  * `crl` - List of all certificate revoked by the intermediate public CA
+* `ca.home.guardtone.com:/root/ca/intermediate/home`
+  * `private` - Private/Public key pair (of intermediate home CA)
+  * `crs` - Certificate requests to be processed by intermediate home CA (Including ou own request to the Root CA)
+  * `certs` - Certificates signed by intermediate home CA (Including intermediate home's own certificate signed by Root CA)
+  * `crl` - List of all certificate revoked by the intermediate home CA
 
 ## Resources
 
