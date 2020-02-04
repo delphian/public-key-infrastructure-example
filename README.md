@@ -66,47 +66,54 @@ __***For HomeLab Experimentation Only***__
   sudo openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
   ```
 
-### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
-* Create OCSP Resolver private key and CSR. CN must be `ocsp.ca.guardtone.com`
+### Box: ca.guardtone.com (OCSP Responder and CRL Host)
+* Create file structure
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "ocsp.ca.guardtone.com.key.pem"
+  sudo mkdir -p "/root/ca/certs" "/root/ca/crl"
+  sudo mkdir -p "/root/ca/ocsp/private" "/root/ca/ocsp/csr" "/root/ca/ocsp/certs" "/root/ca/ocsp/crl"
+  ```
+* Create OCSP Resolver private key and CSR. ___CN must be `ocsp.ca.guardtone.com`___
+  ```bash
+  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
-                   -key "./ocsp.ca.guardtone.com.key.pem" \
-                   -out "./ocsp.ca.guardtone.com.csr"
+                   -key "/root/ca/ocsp/private/ocsp.ca.guardtone.com.key.pem" \
+                   -out "/root/ca/ocsp/csr/ocsp.ca.guardtone.com.csr"
   ```
-* Create CRL host private key and CSR. CN must be `crl.ca.guardtone.com`
+* Create CRL host private key and CSR. ___CN must be `crl.ca.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "crl.ca.guardtone.com.key.pem"
+  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
-                   -key "./crl.ca.guardtone.com.key.pem" \
-                   -out "./crl.ca.guardtone.com.csr"
+                   -key "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem" \
+                   -out "/root/ca/ocsp/csr/crl.ca.guardtone.com.csr"
   ```
-* Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
+* Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Sign OCSP responder CSR creating certificate good for 14 days using `ocsp` config file options, then review certificate
-    ```bash
-    sudo openssl ca -config "./root_ca_openssl.cnf" \
-                    -extensions ocsp \
-                    -days 14 \
-                    -md sha384 \
-                    -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
-                    -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
-    sudo openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
-    ````
+  ```bash
+  sudo openssl ca -config "./root_ca_openssl.cnf" \
+                  -extensions ocsp \
+                  -days 14 \
+                  -md sha384 \
+                  -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
+                  -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+  sudo openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+  ```
 * Sign CRL host CSR creating certificate good for 14 days using `server_cert` config file options, then review certificate
-    ```bash
-    sudo openssl ca -config "./root_ca_openssl.cnf" \
-                    -extensions server_cert \
-		    -days 14 \
-                    -md sha384 \
-		    -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
-		    -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
-    sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
-    ````
-* Copy the certificates back to ca.guardtone.com
+  ```bash
+  sudo openssl ca -config "./root_ca_openssl.cnf" \
+                  -extensions server_cert \
+                  -days 14 \
+                  -md sha384 \
+                  -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
+                  -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
+  sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
+  ```
+* Copy OCSP, CRL, and Root CA certificates to ca.guardtone.com:/root/ca/certs
+* Copy index.txt OCSP database to ca.guardtone.com:/root/ca
+* Copy CRL to ca.guardtone.com:/root/ca/crl
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Copy the root Certificate Authority (CA) Certificate, OCSP responder Certificate, revocation database (index.txt), and Certificate Revocation List (CRL) from the usb thumbdrive
@@ -117,11 +124,11 @@ __***For HomeLab Experimentation Only***__
 * Launch OpenSSL in OCSP responder mode (as root?)
     ```bash
     sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
-    -index "/root/ca/index.txt" \
-    -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
-    -rkey "/root/ca/private/ocsp.guardtone.com.key.pem" \
-    -rsigner "/root/ca/certs/ocsp.guardtone.com.crt.pem" \
-    -nrequest 1
+                      -index "/root/ca/index.txt" \
+                      -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
+                      -rkey "/root/ca/private/ocsp.guardtone.com.key.pem" \
+                      -rsigner "/root/ca/certs/ocsp.guardtone.com.crt.pem" \
+                      -nrequest 1
     ```
   * Enter the OCSP responder host private key pass phrase
 
