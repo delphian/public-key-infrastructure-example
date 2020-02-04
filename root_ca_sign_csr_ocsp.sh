@@ -1,33 +1,10 @@
-# Sign a Certificate Signing Request (CSR)
-DIR="/root/ca"
-# ocsp | v3_intermediate_ca | server_cert
-EXTENSIONS="ocsp"
-DAYS="14"
-CONFIG="./root_ca_openssl.cnf"
-
-# Abort script if any error is encountered
-set -e
-# Enumerate Certificate Signing Requests (CSR)
-ls "${DIR}/csr"
-# Choose CSR to sign
-printf "\nEnter file name (url) of Certificate Signing Request (CSR) to sign. Omit .csr extension: "
-read CERT_URL
-# Sign Certificate Signing Request (CSR)
-if [ -f "${DIR}/csr/${CERT_URL}.csr" ]; then
-	printf "\n>> Signing ${CERT_URL}.csr...\n\n"
-	openssl ca -config "${CONFIG}" \
-	           -extensions ${EXTENSIONS} \
-		   -days ${DAYS} \
-		   -md sha384 \
-		   -in "${DIR}/csr/${CERT_URL}.csr" \
-		   -out "${DIR}/certs/${CERT_URL}.crt.pem"
-fi
-# Validate signed certificate
-if [ -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
-	printf "\n\n>> Validating signed certificate...\n\n"
-	openssl x509 -noout -text -in "${DIR}/certs/${CERT_URL}.crt.pem"
-fi
-# Summary
-if [ -f "${DIR}/certs/${CERT_URL}.crt.pem" ]; then
-	printf "\n\n>> Signed certificate: ${DIR}/certs/${CERT_URL}.crt.pem\n\n"
-fi
+# Sign the OCSP CSR, generating a valid certificate good for 14 days, using 
+# ocsp options in the configuration file (ocsp|v3_intermediate_ca|server_cert)
+openssl ca -config "./root_ca_openssl.cnf" \
+           -extensions ocsp \
+	   -days 14 \
+	   -md sha384 \
+	   -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
+	   -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+# Review signed OCSP certificate
+openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
