@@ -130,6 +130,13 @@ __***For HomeLab Experimentation Only***__
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
+* Create file structure
+  ```bash
+  sudo mkdir -p "/root/ca/intermediate/public/private" "/root/ca/intermediate/public/csr" "/root/ca/intermediate/public/certs" "/root/ca/intermediate/public/crl"
+  sudo touch "/root/ca/intermediate/public/index.txt"
+  sudo echo 1000 > "/root/ca/intermediate/public/serial"
+  sudo echo 1000 > "/root/ca/intermediate/public/crlnumber"
+  ```
 * Create Intermediate CA private key and CSR. ___CN could be `GuardTone Intermediate Public Certificate Authority`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
