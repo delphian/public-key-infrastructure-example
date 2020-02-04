@@ -45,18 +45,32 @@ __***For HomeLab Experimentation Only***__
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
-* Execute the root Certificate Authority (CA) initialization script
-    ```bash
-    sudo ./root_ca_initialize.sh
-    ```
-  * Generates root Certificate Authority (CA) private key and encrypts
-    * Supply a PEM pass phrase for the root CA private key and verify. Save to a safe location
-  * Generates root Certificate Authority (CA) Certificate Signing Request (CSR) and self sign with private key (creating the actual certificate)
-    * Enter the root CA private key pass phrase
-    * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * ___Common Name could be `GuardTone Root Certificate Authority`___
-  * Generates root Certificate Authority (CA) Certificate Revocation List (CRL)
-    * Enter the root CA private key pass phrase
+* Create file structure
+  ```bash
+  sudo mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
+  sudo touch "/root/ca/index.txt"
+  sudo echo 1000 > "/root/ca/serial"
+  sudo echo 1000 > "/root/ca/crlnumber"
+  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
+  sudo openssl req -config "./root_ca_openssl.cnf" \
+            -new -x509 -sha384 \
+            -extensions v3_ca \
+            -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
+            -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
+  ```
+* Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
+  ```bash
+  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
+  sudo openssl req -config "./root_ca_openssl.cnf" \
+            -new -x509 -sha384 \
+            -extensions v3_ca \
+            -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
+            -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
+  ```
+* Create CRL
+  ```bash
+  sudo openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
+  ```
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
 * Create OCSP Resolver private key and CSR. CN must be `ocsp.ca.guardtone.com`
