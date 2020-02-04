@@ -43,7 +43,7 @@ __***For HomeLab Experimentation Only***__
     localityName_default            = Victorville
     ```
 
-### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
+### Box: ca-offline.guardtone.com (Offline Root CA)
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
 * Create file structure
   ```bash
@@ -92,7 +92,7 @@ __***For HomeLab Experimentation Only***__
   ```
 * Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
 
-### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
+### Box: ca-offline.guardtone.com (Offline Root CA)
 * Sign OCSP responder CSR creating certificate good for 14 days using `ocsp` config file options, then review certificate
   ```bash
   sudo openssl ca -config "./root_ca_openssl.cnf" \
@@ -117,7 +117,7 @@ __***For HomeLab Experimentation Only***__
 * Copy index.txt OCSP database to ca.guardtone.com:/root/ca
 * Copy CRL to ca.guardtone.com:/root/ca/crl
 
-### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
+### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
   ```bash
   sudo openssl ocsp -port 127.0.0.1:2560 -text -sha256 \
