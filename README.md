@@ -172,7 +172,8 @@ __***For HomeLab Experimentation Only***__
                    -new -x509 -sha384 -extensions ocsp -days 3650
                    -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
                    -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+  sudo openssl x509 -noout -text \
+                    -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
 * Create CRL host private key and sign for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
