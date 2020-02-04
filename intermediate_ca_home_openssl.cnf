@@ -14,8 +14,8 @@ serial            = $dir/serial
 RANDFILE          = $dir/private/.rand
 
 # The root key and root certificate.
-private_key       = $dir/private/home.ca.guardtone.key.pem
-certificate       = $dir/certs/home.ca.guardtone.crt.pem
+private_key       = $dir/private/ca.home.guardtone.key.pem
+certificate       = $dir/certs/ca.home.guardtone.crt.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber
@@ -69,7 +69,7 @@ stateOrProvinceName_default     = California
 localityName_default            = Victorville
 0.organizationName_default      = GuardTone
 organizationalUnitName_default  = GuardTone Intermediate Home CA
-commonName_default		= GuardTone Intermediate Home Certificate Authority
+commonName_default		          = GuardTone Intermediate Home Certificate Authority
 emailAddress_default            = ca@guardtone.com
 
 [ v3_intermediate_ca ]
@@ -94,8 +94,8 @@ keyUsage = critical, digitalSignature
 extendedKeyUsage = critical, OCSPSigning
 
 [crl_info]
-URI.0 = http://crl.home.guardtone.com/guardtone-home-revoked.crl
+URI.0 = http://crl.ca.home.guardtone.com/guardtone-home-revoked.crl
 
 [ocsp_info]
-caIssuers;URI.0 = http://ocsp.home.guardtone.com/guardtone-home.crt
-OCSP;URI.0 = http://ocsp.home.guardtone.com/
+caIssuers;URI.0 = http://ocsp.ca.home.guardtone.com/guardtone-home.crt
+OCSP;URI.0 = http://ocsp.ca.home.guardtone.com/
