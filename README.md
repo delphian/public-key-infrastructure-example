@@ -148,6 +148,21 @@ __***For HomeLab Experimentation Only***__
                    -new \
                    -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
                    -out "/root/ca/intermediate/public/csr/ca-public.guardtone.com.csr"
+  ```
+* Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
+
+### Box: ca-offline.guardtone.com (Offline Root CA)
+* Sign intermediate CA CSR creating certificate good for 3650 days using `v3_intermediate_ca` config file options, then review certificate
+  ```bash
+  sudo openssl ca -config "./root_ca_openssl.cnf" \
+                  -extensions v3_intermediate_ca \
+                  -days 3650 \
+                  -md sha384 \
+                  -in "/root/ca/csr/ca-public.guardtone.com.csr" \
+                  -out "/root/ca/certs/ca-public.guardtone.com.crt.pem"
+  sudo openssl x509 -noout -text -in "/root/ca/certs/ca-public.guardtone.com.crt.pem"
+  ```
+* Copy Intermediate CA certificate to ca-public.guardtone.com:/root/ca/intermediate/public/certs
 
 ## Resulting File Structure
 
