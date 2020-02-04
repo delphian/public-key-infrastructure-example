@@ -59,20 +59,23 @@ __***For HomeLab Experimentation Only***__
     * Enter the root CA private key pass phrase
 
 ### Box: ca.guardtone.com (OCSP Responder and Certficiate Revocation List Host)
-* Execute the OCSP responder Certificate Signing Request (CSR) creation script
+##### Create OCSP Resolver private key and CSR. CN must be `ocsp.ca.guardtone.com`
     ```bash
-    sudo ./root_ca_create_csr_ocsp.sh
+    sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "ocsp.ca.guardtone.com.key.pem"
+    sudo openssl req -config "./root_ca_openssl.cnf" \
+                -new \
+	               -key "./ocsp.ca.guardtone.com.key.pem" \
+	               -out "./ocsp.ca.guardtone.com.csr"
     ```
-  * Generates OCSP responder private key and encrypt
-    * Supply a PEM pass phrase for the OCSP responder host private key and verify. Save to a safe location
-  * Generates OCSP responder Certificate Signing Request
-    * Enter the OCSP responder private key pass phrase
-    * Enter the Distinuished Name details of the certificate holder to be incorporated into the certificate:
-      * ___Common Name must be `ocsp.ca.guardtone.com`___
-    * Copy the OCSP responder Certificate Signing Request (CSR) to a usb thumbdrive
+##### Create CRL host private key and CSR. CN must be `crl.ca.guardtone.com`
     ```bash
-    sudo cp /root/ca/csr/ocsp.ca.guardtone.com.csr /root/ca/csr/crl.ca.guardtone.com.csr /media/usb
+    sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "crl.ca.guardtone.com.key.pem"
+    sudo openssl req -config "./root_ca_openssl.cnf" \
+                -new \
+	               -key "./crl.ca.guardtone.com.key.pem" \
+	               -out "./crl.ca.guardtone.com.csr"
     ```
+##### Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
 * Copy the Certificate Signing Request (CSR) from the usb thumbdrive to the CSR intake and execute the Certificate Signing Request (CSR) processor script
