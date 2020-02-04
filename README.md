@@ -78,30 +78,24 @@ __***For HomeLab Experimentation Only***__
 * Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
-* Sign the OCSP responder CSR
+* Sign OCSP responder CSR creating certificate good for 14 days using `ocsp` config file options, then review certificate
     ```bash
-    # Sign the OCSP CSR, generating a valid certificate good for 14 days, using 
-    # ocsp options in the configuration file (ocsp|v3_intermediate_ca|server_cert)
     sudo openssl ca -config "./root_ca_openssl.cnf" \
-               -extensions ocsp \
-	              -days 14 \
-           	   -md sha384 \
-	              -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
-	              -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
-    # Review signed OCSP certificate
+                    -extensions ocsp \
+                    -days 14 \
+                    -md sha384 \
+                    -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
+                    -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
     sudo openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
     ````
-* Sign the CRL host CSR
+* Sign CRL host CSR creating certificate good for 14 days using `server_cert` config file options, then review certificate
     ```bash
-    # Sign the CRL CSR, generating a valid certificate good for 14 days, using 
-    # server_cert options in the configuration file (ocsp|v3_intermediate_ca|server_cert)
     sudo openssl ca -config "./root_ca_openssl.cnf" \
-               -extensions server_cert \
-	              -days 14 \
-           	   -md sha384 \
-	              -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
-	              -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
-    # Review signed OCSP certificate
+                    -extensions server_cert \
+		    -days 14 \
+                    -md sha384 \
+		    -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
+		    -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
     sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
     ````
 * Copy the certificates back to ca.guardtone.com
