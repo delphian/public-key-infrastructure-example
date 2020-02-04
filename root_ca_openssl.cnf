@@ -125,4 +125,4 @@ URI.0 = http://crl.ca.guardtone.com/guardtone-ca-revoked.crl
 
 [ocsp_info]
 caIssuers;URI.0 = http://certs.ca.guardtone.com/guardtone-ca.crt
-OCSP;URI.0 = http://ocsp.ca.guardtone.com/
+OCSP;URI.0 = http://ocsp.ca.guardtone.com
