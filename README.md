@@ -78,9 +78,31 @@ __***For HomeLab Experimentation Only***__
 * Copy CSRs to `/root/ca/csr` on ca-offline.guardtone.com
 
 ### Box: ca-offline.guardtone.com (Offline Root Certificate Authority)
-* Execute the Certificate Signing Request (CSR) processor script
+* Sign the OCSP responder CSR
     ```bash
-    sudo ./root_ca_sign_csr_ocsp.sh`
+    # Sign the OCSP CSR, generating a valid certificate good for 14 days, using 
+    # ocsp options in the configuration file (ocsp|v3_intermediate_ca|server_cert)
+    sudo openssl ca -config "./root_ca_openssl.cnf" \
+               -extensions ocsp \
+	              -days 14 \
+           	   -md sha384 \
+	              -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
+	              -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+    # Review signed OCSP certificate
+    sudo openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+    ````
+* Sign the CRL host CSR
+    ```bash
+    # Sign the CRL CSR, generating a valid certificate good for 14 days, using 
+    # server_cert options in the configuration file (ocsp|v3_intermediate_ca|server_cert)
+    sudo openssl ca -config "./root_ca_openssl.cnf" \
+               -extensions server_cert \
+	              -days 14 \
+           	   -md sha384 \
+	              -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
+	              -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
+    # Review signed OCSP certificate
+    sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
     ````
 * Copy the certificates back to ca.guardtone.com
 
