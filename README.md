@@ -84,7 +84,8 @@ __***For HomeLab Experimentation Only***__
   ```
 * Create CRL host private key and CSR. ___CN must be `crl.ca.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 | openssl ec -aes256 -out "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem"
+  sudo openssl ecparam -genkey -name secp384r1 \
+     | openssl ec -aes256 -out "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem"
   sudo openssl req -config "./root_ca_openssl.cnf" \
                    -new \
                    -key "/root/ca/ocsp/private/crl.ca.guardtone.com.key.pem" \
