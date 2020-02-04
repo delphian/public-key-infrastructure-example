@@ -164,7 +164,7 @@ __***For HomeLab Experimentation Only***__
 * Copy Intermediate CA certificate to ca-public.guardtone.com:/root/ca/intermediate/public/certs
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
-* Create OCSP CA private key and sign certificate for 3650 days using `ocsp` config file options, then review certificate. ___CN must be `ocsp.ca-public.guardtone.com`___
+* Create OCSP CA private key and sign for 3650 days using `ocsp` config file options, then review certificate. ___CN must be `ocsp.ca-public.guardtone.com`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem"
@@ -173,7 +173,7 @@ __***For HomeLab Experimentation Only***__
                    -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
                    -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
   sudo openssl x509 -noout -text -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
-* Create CRL host private key and sign certificate for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
+* Create CRL host private key and sign for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
   ```bash
   sudo openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
@@ -181,10 +181,12 @@ __***For HomeLab Experimentation Only***__
                    -new -x509 -sha384 -extensions ocsp -days 3650
                    -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
                    -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text -in "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
+  sudo openssl x509 -noout -text \
+                    -in "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
 * Create (or update) CRL
   ```bash
-  sudo openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl -out "/root/ca/intermediate/public/crl/revoked.crl"
+  sudo openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl \
+                  -out "/root/ca/intermediate/public/crl/revoked.crl"
   ```
 * Launch the OCSP responder with OpenSSL
   ```bash
