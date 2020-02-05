@@ -114,9 +114,9 @@ __***For HomeLab Experimentation Only***__
                   -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
   sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
   ```
-* Copy OCSP, CRL, and Root CA certificates to ca.guardtone.com:/root/ca/certs
-* Copy index.txt OCSP database to ca.guardtone.com:/root/ca
-* Copy /root/ca/crl/revoked.crl to ca.guardtone.com:/root/ca/crl
+* Copy OCSP, CRL, and Root CA certificates to `ca.guardtone.com:/root/ca/certs`
+* Copy index.txt OCSP database to `ca.guardtone.com:/root/ca`
+* Copy CRL to `ca.guardtone.com:/root/ca/crl`
 
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
@@ -202,6 +202,10 @@ __***For HomeLab Experimentation Only***__
                     -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
                     -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem" \
                     -nrequest 1 &
+  ```
+* Update Apache with CRL
+  ```bash
+  sudo cp /root/ca/intermediate/public/crl/revoked.crl /var/www/html/guardtone-ca-public-revoked.crl
   ```
 
 ## Resulting File Structure
