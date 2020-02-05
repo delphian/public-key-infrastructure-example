@@ -14,8 +14,8 @@ serial            = $dir/serial
 RANDFILE          = $dir/private/.rand
 
 # The root key and root certificate.
-private_key       = $dir/private/ca-public.guardtone.key.pem
-certificate       = $dir/certs/ca-public.guardtone.crt.pem
+private_key       = $dir/private/ca-public.guardtone.com.key.pem
+certificate       = $dir/certs/ca-public.guardtone.com.crt.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber
