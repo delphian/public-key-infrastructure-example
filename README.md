@@ -115,8 +115,8 @@ __***For HomeLab Experimentation Only***__
   openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
   ```
 * Copy OCSP, CRL, and Root CA certificates to `ca.guardtone.com:/root/ca/certs`
-* Copy index.txt OCSP database to `ca.guardtone.com:/root/ca`
-* Copy CRL to `ca.guardtone.com:/root/ca/crl`
+* Copy `/root/ca/index.txt` OCSP database to `ca.guardtone.com:/root/ca`
+* Copy `/root/ca/crl/revoked.crl` CRL to `ca.guardtone.com:/root/ca/crl`
 
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
