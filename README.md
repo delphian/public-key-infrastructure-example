@@ -196,7 +196,7 @@ __***For HomeLab Experimentation Only***__
   ```
 * Launch the OCSP responder with OpenSSL
   ```bash
-  openssl ocsp -port 2560 -text -sha256 \
+  openssl ocsp -port 2570 -text -sha256 \
                -index "/root/ca/intermediate/public/index.txt" \
                -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
                -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
