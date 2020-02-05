@@ -130,7 +130,7 @@ __***For HomeLab Experimentation Only***__
   ```
 * Update Apache with CRL
   ```bash
-  sudo cp /root/ca/crl /var/www/html/index.html
+  sudo cp /root/ca/crl/revoked.crl /var/www/html/guardtone-ca-revoked.crl
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
