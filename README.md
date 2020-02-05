@@ -50,8 +50,8 @@ __***For HomeLab Experimentation Only***__
   ```bash
   sudo mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
   sudo touch "/root/ca/index.txt"
-  sudo echo 1000 > "/root/ca/serial"
-  sudo echo 1000 > "/root/ca/crlnumber"
+  sudo sh -c 'echo 1000 > "/root/ca/serial"'
+  sudo sh -c 'echo 1000 > "/root/ca/crlnumber"'
   ```
 * Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
   ```bash
@@ -141,8 +141,8 @@ __***For HomeLab Experimentation Only***__
                 "/root/ca/intermediate/public/certs" \
                 "/root/ca/intermediate/public/crl"
   sudo touch "/root/ca/intermediate/public/index.txt"
-  sudo echo 1000 > "/root/ca/intermediate/public/serial"
-  sudo echo 1000 > "/root/ca/intermediate/public/crlnumber"
+  sudo sh -c 'echo 1000 > "/root/ca/intermediate/public/serial"'
+  sudo sh -c 'echo 1000 > "/root/ca/intermediate/public/crlnumber"'
   ```
 * Create Intermediate CA private key and CSR. ___CN could be `GuardTone Intermediate Public Certificate Authority`___
   ```bash
