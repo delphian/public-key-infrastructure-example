@@ -19,9 +19,10 @@ __***For HomeLab Experimentation Only***__
 ## Installation
 
 ### Provision All Machines
-* Install Ubuntu Server 16.04 with LAMP stack and SSH server packages on all machines
+* Install Ubuntu Server 16.04 with SSH server packages on all machines
 * From non priviledged user directory clone and enter repository
     ```bash
+    sudo apt-get install apache2
     git clone https://github.com/delphian/public-key-infrastructure-example.git
     cd public-key-infrastructure-example
     ```
@@ -115,7 +116,7 @@ __***For HomeLab Experimentation Only***__
   ```
 * Copy OCSP, CRL, and Root CA certificates to ca.guardtone.com:/root/ca/certs
 * Copy index.txt OCSP database to ca.guardtone.com:/root/ca
-* Copy CRL to ca.guardtone.com:/root/ca/crl
+* Copy /root/ca/crl/revoked.crl to ca.guardtone.com:/root/ca/crl
 
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
@@ -126,6 +127,10 @@ __***For HomeLab Experimentation Only***__
                     -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
                     -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" \
                     -nrequest 1 &
+  ```
+* Update Apache with CRL
+  ```bash
+  sudo cp /root/ca/crl /var/www/html/index.html
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
