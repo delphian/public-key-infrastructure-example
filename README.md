@@ -48,71 +48,71 @@ __***For HomeLab Experimentation Only***__
 * Remove wifi card. Unplug physical network cable. Disable CD/DVD and USB boot in BIOS. Disable Integrated wifi and bluetooth in BIOS.
 * Create file structure
   ```bash
-  sudo mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
-  sudo touch "/root/ca/index.txt"
-  sudo sh -c 'echo 1000 > "/root/ca/serial"'
-  sudo sh -c 'echo 1000 > "/root/ca/crlnumber"'
+  mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
+  touch "/root/ca/index.txt"
+  echo 1000 > "/root/ca/serial"
+  echo 1000 > "/root/ca/crlnumber"
   ```
 * Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
-  sudo openssl req -config "./root_ca_openssl.cnf" \
-                   -new -x509 -sha384 \
-                   -extensions v3_ca \
-                   -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
-                   -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
+  openssl req -config "./root_ca_openssl.cnf" \
+              -new -x509 -sha384 \
+              -extensions v3_ca \
+              -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
+              -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
   ```
 * Create (or update) CRL
   ```bash
-  sudo openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
+  openssl ca -config "./root_ca_openssl.cnf" -gencrl -out "/root/ca/crl/revoked.crl"
   ```
 
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Create file structure
   ```bash
-  sudo mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
+  mkdir -p "/root/ca/private" "/root/ca/csr" "/root/ca/certs" "/root/ca/crl"
   ```
 * Create OCSP Resolver private key and CSR. ___CN must be `ocsp.ca.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/private/ocsp.ca.guardtone.com.key.pem"
-  sudo openssl req -config "./root_ca_openssl.cnf" \
-                   -new \
-                   -key "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
-                   -out "/root/ca/csr/ocsp.ca.guardtone.com.csr"
+  openssl req -config "./root_ca_openssl.cnf" \
+              -new \
+              -key "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
+              -out "/root/ca/csr/ocsp.ca.guardtone.com.csr"
   ```
 * Create CRL host private key and CSR. ___CN must be `crl.ca.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/private/crl.ca.guardtone.com.key.pem"
-  sudo openssl req -config "./root_ca_openssl.cnf" \
-                   -new \
-                   -key "/root/ca/private/crl.ca.guardtone.com.key.pem" \
-                   -out "/root/ca/csr/crl.ca.guardtone.com.csr"
+  openssl req -config "./root_ca_openssl.cnf" \
+              -new \
+              -key "/root/ca/private/crl.ca.guardtone.com.key.pem" \
+              -out "/root/ca/csr/crl.ca.guardtone.com.csr"
   ```
 * Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
 
 ### Box: ca-offline.guardtone.com (Offline Root CA)
 * Sign OCSP responder CSR creating certificate good for 14 days using `ocsp` config file options, then review certificate
   ```bash
-  sudo openssl ca -config "./root_ca_openssl.cnf" \
-                  -extensions ocsp \
-                  -days 14 \
-                  -md sha384 \
-                  -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
-                  -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+  openssl ca -config "./root_ca_openssl.cnf" \
+             -extensions ocsp \
+             -days 14 \
+             -md sha384 \
+             -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
+             -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+  openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
   ```
 * Sign CRL host CSR creating certificate good for 14 days using `server_cert` config file options, then review certificate
   ```bash
-  sudo openssl ca -config "./root_ca_openssl.cnf" \
-                  -extensions server_cert \
-                  -days 14 \
-                  -md sha384 \
-                  -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
-                  -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
+  openssl ca -config "./root_ca_openssl.cnf" \
+             -extensions server_cert \
+             -days 14 \
+             -md sha384 \
+             -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
+             -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
+  openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
   ```
 * Copy OCSP, CRL, and Root CA certificates to `ca.guardtone.com:/root/ca/certs`
 * Copy index.txt OCSP database to `ca.guardtone.com:/root/ca`
@@ -121,91 +121,91 @@ __***For HomeLab Experimentation Only***__
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
   ```bash
-  sudo openssl ocsp -port 2560 -text -sha256 \
-                    -index "/root/ca/index.txt" \
-                    -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
-                    -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
-                    -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" \
-                    -nrequest 1 &
+  openssl ocsp -port 2560 -text -sha256 \
+               -index "/root/ca/index.txt" \
+               -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
+               -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
+               -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" \
+               -nrequest 1 &
   ```
 * Update Apache with CRL
   ```bash
-  sudo cp /root/ca/crl/revoked.crl /var/www/html/guardtone-ca-revoked.crl
+  cp /root/ca/crl/revoked.crl /var/www/html/guardtone-ca-revoked.crl
   ```
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
 * Create file structure
   ```bash
-  sudo mkdir -p "/root/ca/intermediate/public/private" \
-                "/root/ca/intermediate/public/csr" \
-                "/root/ca/intermediate/public/certs" \
-                "/root/ca/intermediate/public/crl"
-  sudo touch "/root/ca/intermediate/public/index.txt"
-  sudo sh -c 'echo 1000 > "/root/ca/intermediate/public/serial"'
-  sudo sh -c 'echo 1000 > "/root/ca/intermediate/public/crlnumber"'
+  mkdir -p "/root/ca/intermediate/public/private" \
+           "/root/ca/intermediate/public/csr" \
+           "/root/ca/intermediate/public/certs" \
+           "/root/ca/intermediate/public/crl"
+  touch "/root/ca/intermediate/public/index.txt"
+  echo 1000 > "/root/ca/intermediate/public/serial"
+  echo 1000 > "/root/ca/intermediate/public/crlnumber"
   ```
 * Create Intermediate CA private key and CSR. ___CN could be `GuardTone Intermediate Public Certificate Authority`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem"
-  sudo openssl req -config "./intermediate_ca_public_openssl.cnf" \
-                   -new \
-                   -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
-                   -out "/root/ca/intermediate/public/csr/ca-public.guardtone.com.csr"
+  openssl req -config "./intermediate_ca_public_openssl.cnf" \
+              -new \
+              -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
+              -out "/root/ca/intermediate/public/csr/ca-public.guardtone.com.csr"
   ```
 * Copy CSRs to ca-offline.guardtone.com:/root/ca/csr
 
 ### Box: ca-offline.guardtone.com (Offline Root CA)
 * Sign intermediate CA CSR creating certificate good for 3650 days using `v3_intermediate_ca` config file options, then review certificate
   ```bash
-  sudo openssl ca -config "./root_ca_openssl.cnf" \
-                  -extensions v3_intermediate_ca \
-                  -days 3650 \
-                  -md sha384 \
-                  -in "/root/ca/csr/ca-public.guardtone.com.csr" \
-                  -out "/root/ca/certs/ca-public.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text -in "/root/ca/certs/ca-public.guardtone.com.crt.pem"
+  openssl ca -config "./root_ca_openssl.cnf" \
+             -extensions v3_intermediate_ca \
+             -days 3650 \
+             -md sha384 \
+             -in "/root/ca/csr/ca-public.guardtone.com.csr" \
+             -out "/root/ca/certs/ca-public.guardtone.com.crt.pem"
+  openssl x509 -noout -text -in "/root/ca/certs/ca-public.guardtone.com.crt.pem"
   ```
 * Copy Intermediate CA certificate to ca-public.guardtone.com:/root/ca/intermediate/public/certs
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
 * Create OCSP CA private key and sign for 3650 days using `ocsp` config file options, then review certificate. ___CN must be `ocsp.ca-public.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem"
-  sudo openssl req -config "./intermediate_ca_public_openssl.cnf" \
-                   -new -x509 -sha384 -extensions ocsp -days 3650
-                   -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
-                   -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text \
-                    -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+  openssl req -config "./intermediate_ca_public_openssl.cnf" \
+              -new -x509 -sha384 -extensions ocsp -days 3650
+              -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
+              -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+  openssl x509 -noout -text \
+               -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
 * Create CRL host private key and sign for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
   ```bash
-  sudo openssl ecparam -genkey -name secp384r1 \
+  openssl ecparam -genkey -name secp384r1 \
      | openssl ec -aes256 -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
-  sudo openssl req -config "./intermediate_ca_public_openssl.cnf" \
-                   -new -x509 -sha384 -extensions ocsp -days 3650
-                   -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
-                   -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
-  sudo openssl x509 -noout -text \
-                    -in "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
+  openssl req -config "./intermediate_ca_public_openssl.cnf" \
+              -new -x509 -sha384 -extensions ocsp -days 3650
+              -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
+              -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
+  openssl x509 -noout -text \
+               -in "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
 * Create (or update) CRL
   ```bash
-  sudo openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl \
-                  -out "/root/ca/intermediate/public/crl/revoked.crl"
+  openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl \
+             -out "/root/ca/intermediate/public/crl/revoked.crl"
   ```
 * Launch the OCSP responder with OpenSSL
   ```bash
-  sudo openssl ocsp -port 2560 -text -sha256 \
-                    -index "/root/ca/intermediate/public/index.txt" \
-                    -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
-                    -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
-                    -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem" \
-                    -nrequest 1 &
+  openssl ocsp -port 2560 -text -sha256 \
+               -index "/root/ca/intermediate/public/index.txt" \
+               -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
+               -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
+               -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem" \
+               -nrequest 1 &
   ```
 * Update Apache with CRL
   ```bash
-  sudo cp /root/ca/intermediate/public/crl/revoked.crl /var/www/html/guardtone-ca-public-revoked.crl
+  cp /root/ca/intermediate/public/crl/revoked.crl /var/www/html/guardtone-ca-public-revoked.crl
   ```
 
 ## Resulting File Structure
