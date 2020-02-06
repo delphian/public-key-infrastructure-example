@@ -184,8 +184,8 @@ __***For HomeLab Experimentation Only***__
               -out "/root/ca/intermediate/public/csr/crl.ca-public.guardtone.com.csr"
   openssl ca -config "./intermediate_ca_public_openssl.cnf" \
              -extensions server_cert -days 3650 -md sha384 \
-             -in "/root/ca/intermediate/public/csr/ocsp.ca-public.guardtone.com.csr" \
-             -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+             -in "/root/ca/intermediate/public/csr/crl.ca-public.guardtone.com.csr" \
+             -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
 * Create (or update) CRL
   ```bash
   openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl \
