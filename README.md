@@ -97,9 +97,7 @@ __***For HomeLab Experimentation Only***__
 * Sign OCSP responder CSR creating certificate good for 14 days using `ocsp` config file options, then review certificate
   ```bash
   openssl ca -config "./root_ca_openssl.cnf" \
-             -extensions ocsp \
-             -days 14 \
-             -md sha384 \
+             -extensions ocsp -days 14 -md sha384 \
              -in "/root/ca/csr/ocsp.ca.guardtone.com.csr" \
              -out "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
   openssl x509 -noout -text -in "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
@@ -107,9 +105,7 @@ __***For HomeLab Experimentation Only***__
 * Sign CRL host CSR creating certificate good for 14 days using `server_cert` config file options, then review certificate
   ```bash
   openssl ca -config "./root_ca_openssl.cnf" \
-             -extensions server_cert \
-             -days 14 \
-             -md sha384 \
+             -extensions server_cert -days 14 -md sha384 \
              -in "/root/ca/csr/crl.ca.guardtone.com.csr" \
              -out "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
   openssl x509 -noout -text -in "/root/ca/certs/crl.ca.guardtone.com.crt.pem"
@@ -158,9 +154,7 @@ __***For HomeLab Experimentation Only***__
 * Sign intermediate CA CSR creating certificate good for 3650 days using `v3_intermediate_ca` config file options, then review certificate
   ```bash
   openssl ca -config "./root_ca_openssl.cnf" \
-             -extensions v3_intermediate_ca \
-             -days 3650 \
-             -md sha384 \
+             -extensions v3_intermediate_ca -days 3650 -md sha384 \
              -in "/root/ca/csr/ca-public.guardtone.com.csr" \
              -out "/root/ca/certs/ca-public.guardtone.com.crt.pem"
   openssl x509 -noout -text -in "/root/ca/certs/ca-public.guardtone.com.crt.pem"
@@ -168,26 +162,30 @@ __***For HomeLab Experimentation Only***__
 * Copy Intermediate CA certificate to ca-public.guardtone.com:/root/ca/intermediate/public/certs
 
 ### Box: ca-public.guardtone.com (Online Intermediate _Public_ CA)
-* Create OCSP CA private key and sign for 3650 days using `ocsp` config file options, then review certificate. ___CN must be `ocsp.ca-public.guardtone.com`___
+* Create OCSP CA private key and sign for 3650 days using `ocsp` config file options. ___CN must be `ocsp.ca-public.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
      | openssl ec -out "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
-              -new -x509 -sha384 -extensions ocsp -days 3650 \
-              -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
-              -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
-  openssl x509 -noout -text \
-               -in "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+              -new \
+              -key "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
+              -out "/root/ca/intermediate/public/csr/ocsp.ca-public.guardtone.com.csr"
+  openssl ca -config "./intermediate_ca_public_openssl.cnf" \
+             -extensions ocsp -days 3650 -md sha384 \
+             -in "/root/ca/intermediate/public/csr/ocsp.ca-public.guardtone.com.csr" \
+             -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
 * Create CRL host private key and sign for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
      | openssl ec -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
-              -new -x509 -sha384 -extensions server_cert -days 3650 \
-              -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
-              -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
-  openssl x509 -noout -text \
-               -in "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
+              -new \
+              -key "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem" \
+              -out "/root/ca/intermediate/public/csr/crl.ca-public.guardtone.com.csr"
+  openssl ca -config "./intermediate_ca_public_openssl.cnf" \
+             -extensions server_cert -days 3650 -md sha384 \
+             -in "/root/ca/intermediate/public/csr/ocsp.ca-public.guardtone.com.csr" \
+             -out "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
 * Create (or update) CRL
   ```bash
   openssl ca -config "./intermediate_ca_public_openssl.cnf" -gencrl \
