@@ -56,9 +56,9 @@ __***For HomeLab Experimentation Only***__
 * Create Root CA private key and self sign certificate. CN could be `GuardTone Root Certificate Authority`
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/private/ca-offline.guardtone.com.key.pem"
   openssl req -config "./root_ca_openssl.cnf" \
-              -new -x509 -sha384 \
+              -new -x509 -sha384 -days 10950 \
               -extensions v3_ca \
               -key "/root/ca/private/ca-offline.guardtone.com.key.pem" \
               -out "/root/ca/certs/ca-offline.guardtone.com.crt.pem"
@@ -76,7 +76,7 @@ __***For HomeLab Experimentation Only***__
 * Create OCSP Resolver private key and CSR. ___CN must be `ocsp.ca.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/private/ocsp.ca.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/private/ocsp.ca.guardtone.com.key.pem"
   openssl req -config "./root_ca_openssl.cnf" \
               -new \
               -key "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
@@ -85,7 +85,7 @@ __***For HomeLab Experimentation Only***__
 * Create CRL host private key and CSR. ___CN must be `crl.ca.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/private/crl.ca.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/private/crl.ca.guardtone.com.key.pem"
   openssl req -config "./root_ca_openssl.cnf" \
               -new \
               -key "/root/ca/private/crl.ca.guardtone.com.key.pem" \
@@ -125,7 +125,7 @@ __***For HomeLab Experimentation Only***__
                -index "/root/ca/index.txt" \
                -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
                -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
-               -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem"
+               -rsigner "/root/ca/certs/ocsp.ca.guardtone.com.crt.pem" &
   ```
 * Update Apache with CRL
   ```bash
@@ -146,7 +146,7 @@ __***For HomeLab Experimentation Only***__
 * Create Intermediate CA private key and CSR. ___CN could be `GuardTone Intermediate Public Certificate Authority`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
               -new \
               -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
@@ -181,7 +181,7 @@ __***For HomeLab Experimentation Only***__
 * Create CRL host private key and sign for 3650 days using `server_cert` config file options, then review certificate. ___CN must be `crl.ca-public.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
               -new -x509 -sha384 -extensions ocsp -days 3650 \
               -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
@@ -199,7 +199,7 @@ __***For HomeLab Experimentation Only***__
                -index "/root/ca/intermediate/public/index.txt" \
                -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
                -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
-               -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem"
+               -rsigner "/root/ca/intermediate/public/certs/ocsp.ca-public.guardtone.com.crt.pem" &
   ```
 * Update Apache with CRL
   ```bash
