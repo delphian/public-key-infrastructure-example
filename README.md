@@ -121,7 +121,7 @@ __***For HomeLab Experimentation Only***__
 ### Box: ca.guardtone.com (OCSP Responder and CRL Host)
 * Launch the OCSP responder with OpenSSL
   ```bash
-  openssl ocsp -port 2560 -text -sha256 \
+  openssl ocsp -port 2560 -text -sha256 -ignore_err \
                -index "/root/ca/index.txt" \
                -CA "/root/ca/certs/ca-offline.guardtone.com.crt.pem" \
                -rkey "/root/ca/private/ocsp.ca.guardtone.com.key.pem" \
@@ -195,7 +195,7 @@ __***For HomeLab Experimentation Only***__
   ```
 * Launch the OCSP responder with OpenSSL
   ```bash
-  openssl ocsp -port 2570 -text -sha256 \
+  openssl ocsp -port 2570 -text -sha256 -ignore_err \
                -index "/root/ca/intermediate/public/index.txt" \
                -CA "/root/ca/intermediate/public/certs/ca-public.guardtone.com.crt.pem" \
                -rkey "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem" \
