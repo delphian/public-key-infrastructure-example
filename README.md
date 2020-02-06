@@ -183,7 +183,7 @@ __***For HomeLab Experimentation Only***__
   openssl ecparam -genkey -name secp384r1 \
      | openssl ec -out "/root/ca/intermediate/public/private/crl.ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
-              -new -x509 -sha384 -extensions ocsp -days 3650 \
+              -new -x509 -sha384 -extensions server_cert -days 3650 \
               -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
               -out "/root/ca/intermediate/public/certs/crl.ca-public.guardtone.com.crt.pem"
   openssl x509 -noout -text \
