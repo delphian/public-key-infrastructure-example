@@ -171,7 +171,7 @@ __***For HomeLab Experimentation Only***__
 * Create OCSP CA private key and sign for 3650 days using `ocsp` config file options, then review certificate. ___CN must be `ocsp.ca-public.guardtone.com`___
   ```bash
   openssl ecparam -genkey -name secp384r1 \
-     | openssl ec -aes256 -out "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem"
+     | openssl ec -out "/root/ca/intermediate/public/private/ocsp.ca-public.guardtone.com.key.pem"
   openssl req -config "./intermediate_ca_public_openssl.cnf" \
               -new -x509 -sha384 -extensions ocsp -days 3650 \
               -key "/root/ca/intermediate/public/private/ca-public.guardtone.com.key.pem" \
